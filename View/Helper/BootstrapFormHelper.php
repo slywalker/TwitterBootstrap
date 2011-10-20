@@ -78,10 +78,10 @@ class BootstrapFormHelper extends AppHelper {
 			return $out;
 		}
 
-		if (!preg_match('/<input type="hidden"[^>]+>/m', $out, $match)) {
-			return $out;
+		$hidden = '';
+		if (preg_match('/<input type="hidden"[^>]+>/m', $out, $match)) {
+			$hidden = $match[0];
 		}
-		$hidden = $match[0];
 
 		$error = '';
 		if (preg_match('/<span class="help-block"[^>]*>[^<]*<\/span>/m', $out, $match)) {
