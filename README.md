@@ -13,7 +13,8 @@ How to install
 	$ cd YOUR_APP
 	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git Plugin/TwitterBootstrap
 	$ cd Plugin/TwitterBootstrap
-	$ git submodule init
+	$ git submodule update --init
+	$ cd YOUR_APP
 	$ cake TwitterBootstrap.init
 
 TwitterBootstrap.init make symlink css and js files in TwitterBootstrap/webroot.
