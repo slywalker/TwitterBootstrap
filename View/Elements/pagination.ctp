@@ -9,7 +9,11 @@ if (!isset($model)) {
 ?>
 <div class="pagination">
 	<ul>
-		<?php echo $this->Paginator->first('<<', array('tag' => 'li')); ?>
+		<?php echo str_replace('<>', '', $this->Html->tag('li', $this->Paginator->first('<<', array(
+			'tag' => null,
+		)), array(
+			'class' => 'next',
+		))); ?>
 		<?php echo $this->Paginator->prev('<', array(
 			'tag' => 'li',
 			'class' => 'prev',
