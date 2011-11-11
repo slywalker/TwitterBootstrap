@@ -15,7 +15,7 @@ How to install
 	$ cd Plugin/TwitterBootstrap
 	$ git submodule update --init
 	$ cd YOUR_APP
-	$ cake TwitterBootstrap.init
+	$ cake twitter_bootstrap.init
 
 TwitterBootstrap.init make symlink css and js files in TwitterBootstrap/webroot.
 
@@ -35,11 +35,11 @@ Usage
 
 Load CSS
 
-	<?php echo $this->Html->css('/TwitterBootstrap/css/bootstrap.min'); ?>
+	<?php echo $this->Html->css('/twitter_bootstrap/css/bootstrap.min'); ?>
 
 Load JS
 
-	<?php echo $this->Html->script('/TwitterBootstrap/js/bootstrap-alerts.js'); ?>
+	<?php echo $this->Html->script('/twitter_bootstrap/js/bootstrap-alerts.js'); ?>
 
 Output form input as Bootstrap format
 
@@ -48,7 +48,7 @@ Output form input as Bootstrap format
 Output SessionHelper::flash as Bootstrap format
 
 	<?php echo $this->BootstrapSession->flash(); ?>
-	
+
 Output Paginate as Bootstrap format
 
-	<?php echo $this->element('paginate', array(), array('plugin' => 'TwitterBootstrap')); ?>
+	<?php echo $this->element('pagination', array(), array('plugin' => 'TwitterBootstrap')); ?>
