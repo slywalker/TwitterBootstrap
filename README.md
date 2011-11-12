@@ -19,7 +19,6 @@ How to install
 
 TwitterBootstrap.init make symlink css and js files in TwitterBootstrap/webroot.
 
-
 Controller/AppController.php
 
 	<?php
@@ -44,9 +43,15 @@ Load JS
 Output form input as Bootstrap format
 
 	<?php echo $this->BootstrapForm->input('name'); ?>
+	<?php echo $this->BootstrapForm->submit('Submit'); ?>
 
 Output SessionHelper::flash as Bootstrap format
 
+	// SomethingsController
+	$this->Session->setFlash(__('The something has been saved'), 'default', array('class' => 'success'));
+	$this->Session->setFlash(__('The something could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+
+	// View
 	<?php echo $this->BootstrapSession->flash(); ?>
 
 Output Paginate as Bootstrap format
