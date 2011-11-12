@@ -134,4 +134,14 @@ class BootstrapFormHelper extends AppHelper {
 		$out .= $error;
 		return $out;
 	}
+
+	public function submit($caption = null, $options = array()) {
+		$default = array(
+			'div' => array('class' => 'actions'),
+			'class' => 'btn primary',
+		);
+		$options += $default;
+		return $this->Form->submit($caption, $options);
+	}
+
 }
