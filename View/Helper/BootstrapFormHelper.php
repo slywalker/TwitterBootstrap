@@ -92,7 +92,7 @@ class BootstrapFormHelper extends AppHelper {
 		);
 		$options = Set::merge($default, $options);
 
-		if (!preg_match_all('/(<input type="radio"[^>]+>)([^<]*)/m', $out, $matches)) {
+		if (!preg_match_all('/(<input type="radio"[^>]+>)(((?!<input).)*)/m', $out, $matches)) {
 			return $out;
 		}
 
@@ -126,7 +126,7 @@ class BootstrapFormHelper extends AppHelper {
 		);
 		$options = Set::merge($default, $options);
 
-		if (!preg_match_all('/<div[^>]+>(<input type="checkbox"[^>]+>)(<label[^>]+>)([^<]*)(<\/label>)<\/div>/m', $out, $matches)) {
+		if (!preg_match_all('/<div[^>]+>(<input type="checkbox"[^>]+>)(<label[^>]+>)(((?!<\/label).)*)(<\/label>)<\/div>/m', $out, $matches)) {
 			return $out;
 		}
 
