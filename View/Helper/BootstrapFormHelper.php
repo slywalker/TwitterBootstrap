@@ -155,11 +155,18 @@ class BootstrapFormHelper extends AppHelper {
 
 	public function submit($caption = null, $options = array()) {
 		$default = array(
+			'type' => 'submit',
 			'div' => array('class' => 'actions'),
 			'class' => 'btn primary',
+			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
 		$options += $default;
-		return $this->Form->submit($caption, $options);
+		$divOptions = $options['div'];
+		unset($options['div']);
+
+		$out = $this->Html->tag('button', $caption, $options);
+		$out = $this->Html->tag('div', $out, $divOptions);
+		return $out;
 	}
 
 }
