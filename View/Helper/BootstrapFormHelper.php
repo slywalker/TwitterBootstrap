@@ -32,12 +32,12 @@ class BootstrapFormHelper extends AppHelper {
 		$options['error'] = array(
 			'attributes' => array(
 				'wrap' => 'span',
-				'class' => 'help-block',
+				'class' => 'help-inline',
 			),
 		);
 		if ($options['after']) {
 			$options['after'] = $this->Html->tag('span', $options['after'], array(
-				'class' => 'help-inline',
+				'class' => 'help-block',
 			));
 		}
 		if ($options['before']) {
@@ -47,6 +47,9 @@ class BootstrapFormHelper extends AppHelper {
 		$form = $this->Form->input($name, $options);
 		if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
 			$form = $options['after'] .$this->_multipleCheckbox($form, $options);
+		}
+		elseif ($options['type'] === 'checkbox') {
+			$form = $this->_checkbox($name, $options);
 		}
 		elseif ($options['type'] === 'radio') {
 			$form = $this->_radio($form, $options);
@@ -67,6 +70,21 @@ class BootstrapFormHelper extends AppHelper {
 		return $options;
 	}
 
+	protected function _checkbox($name, $options) {
+		$default = array(
+			'ul' => array('class' => 'inputs-list'),
+			'li' => array(),
+		);
+
+		$form = $this->Form->input($name, $options);
+
+		$options = Set::merge($default, $options);
+		$form = $this->Html->tag('label', $form);
+		$form = $this->Html->tag('li', $form, $options['li']);
+		$form = $this->Html->tag('ul', $form, $options['ul']);
+		return $form;
+	}
+
 	protected function _radio($out, $options) {
 		$default = array(
 			'ul' => array('class' => 'inputs-list'),
@@ -74,7 +92,7 @@ class BootstrapFormHelper extends AppHelper {
 		);
 		$options = Set::merge($default, $options);
 
-		if (!preg_match_all('/(<input type="radio"[^>]+>)([^<]*)/m', $out, $matches)) {
+		if (!preg_match_all('/(<input type="radio"[^>]+>)(((?!<input).)*)/m', $out, $matches)) {
 			return $out;
 		}
 
@@ -84,8 +102,8 @@ class BootstrapFormHelper extends AppHelper {
 		}
 
 		$error = '';
-		if (preg_match('/<span class="help-block"[^>]*>[^<]*<\/span>/m', $out, $match)) {
-			$error = $match[0];
+		if (preg_match('/<span class="' . $options['error']['attributes']['class'] . '"[^>]*>[^<]*<\/span>/m', $out, $match)) {
+			$error = '<p>' . $match[0] . '</p>';
 		}
 
 		$lines = array();
@@ -118,8 +136,8 @@ class BootstrapFormHelper extends AppHelper {
 		$hidden = $match[0];
 
 		$error = '';
-		if (preg_match('/<span class="help-block"[^>]*>[^<]*<\/span>/m', $out, $match)) {
-			$error = $match[0];
+		if (preg_match('/<span class="' . $options['error']['attributes']['class'] . '"[^>]*>[^<]*<\/span>/m', $out, $match)) {
+			$error = '<p>' . $match[0] . '</p>';
 		}
 
 		$lines = array();
@@ -137,11 +155,18 @@ class BootstrapFormHelper extends AppHelper {
 
 	public function submit($caption = null, $options = array()) {
 		$default = array(
+			'type' => 'submit',
 			'div' => array('class' => 'actions'),
 			'class' => 'btn primary',
+			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
 		$options += $default;
-		return $this->Form->submit($caption, $options);
+		$divOptions = $options['div'];
+		unset($options['div']);
+
+		$out = $this->Html->tag('button', $caption, $options);
+		$out = $this->Html->tag('div', $out, $divOptions);
+		return $out;
 	}
 
 }
