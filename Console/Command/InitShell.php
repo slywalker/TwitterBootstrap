@@ -1,5 +1,5 @@
 <?php
-class InitShell extends Shell {
+class InitShell extends AppShell {
 
 	public function main() {
 		$pluginRoot = dirname(dirname(__DIR__));
@@ -18,16 +18,40 @@ class InitShell extends Shell {
 		}
 		foreach (glob($target . $fileReg) as $filename) {
 			$basename = basename($filename);
-			$this->out('target: ' . $filename, 1, Shell::VERBOSE);
-			$this->out('link: ' . $link . $basename, 1, Shell::VERBOSE);
 			if (file_exists($link . $basename)) {
 				unlink($link . $basename);
 			}
-			if (symlink($filename, $link . $basename)) {
+
+			$relativePath = $this->_relativePath($link, $filename);
+			$this->out('target: ' . $relativePath, 1, Shell::VERBOSE);
+			$this->out('link: ' . $link . $basename, 1, Shell::VERBOSE);
+
+			if (symlink($relativePath, $link . $basename)) {
 				$this->out('success: ' . $basename);
 			} else {
 				$this->out('error: ' . $basename);
 			}
 		}
 	}
+
+	protected function _relativePath($base, $target) {
+		$base   = explode(DS, $base);
+		$target = explode(DS, $target);
+		$result = array();
+		$same = true;
+
+		foreach ($base as $key => $_base) {
+			if ($same && $_base === $target[$key]) {
+				unset($target[$key]);
+				continue;
+			}
+			if (!$same) {
+				$result[] = '..';
+			}
+			$same = false;
+		}
+
+		return implode(DS, $result) . DS . implode(DS, $target);
+	}
+
 }
