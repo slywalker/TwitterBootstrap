@@ -24,9 +24,11 @@ Controller/AppController.php
 	<?php
 	class AppController extends Controller {
 		public $helpers = array(
- 			'Session', 'Html', 'Form',
- 			'TwitterBootstrap.BootstrapForm', 'TwitterBootstrap.BootstrapSession'
- 		);
+			'Session', 'Html', 'Form',
+			'TwitterBootstrap.BootstrapHtml',
+			'TwitterBootstrap.BootstrapForm',
+			'TwitterBootstrap.BootstrapSession'
+		);
 	}
 
 Usage
@@ -34,15 +36,24 @@ Usage
 
 Load CSS
 
-	<?php echo $this->Html->css('/twitter_bootstrap/css/bootstrap.min'); ?>
+	<?php echo $this->BootstrapHtml->css(); ?>
 
 Load JS
 
-	<?php echo $this->Html->script('/twitter_bootstrap/js/bootstrap-alerts.js'); ?>
+	<?php echo $this->BootstrapHtml->script(); ?> all script
+
+or
+
+	<?php echo $this->BootstrapHtml->script('bootstrap-alerts.js'); ?>
 
 Output form input as Bootstrap format
 
 	<?php echo $this->BootstrapForm->input('name'); ?>
+	<?php echo $this->BootstrapForm->inlineInputs('name', array(
+		'first_name' => array('class' => 'small'),
+		'&nbsp;',
+		'last_name' => array('class' => 'small'),
+	)); ?>
 	<?php echo $this->BootstrapForm->submit('Submit'); ?>
 
 Output SessionHelper::flash as Bootstrap format
@@ -57,3 +68,11 @@ Output SessionHelper::flash as Bootstrap format
 Output Paginate as Bootstrap format
 
 	<?php echo $this->element('pagination', array(), array('plugin' => 'TwitterBootstrap')); ?>
+
+Breadcrumb
+
+	<?php echo $this->BootstrapHtml->breadcrumb(array(
+		$this->Html->link('one', '/one'),
+		$this->Html->link('two', '/two'),
+		'three',
+	)); ?>
