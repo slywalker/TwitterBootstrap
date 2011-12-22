@@ -20,10 +20,14 @@ class BootstrapHtmlHelper extends AppHelper {
 		$jsPath = $pluginRoot . DS . 'webroot' . DS . 'js' . DS;
 
 		if ($url === 'all') {
-			$url = array();
+			$url = array(
+				'bootstrap-twipsy.js',
+				'bootstrap-popover.js',
+			);
 			foreach (glob($jsPath . '*') as $js) {
 				$url[] = basename($js);
 			}
+			$url = array_unique($url);
 		}
 		$url = (array) $url;
 		array_walk($url, function(&$value) use ($pluginName) {
