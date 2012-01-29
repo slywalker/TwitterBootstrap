@@ -21,10 +21,33 @@ class BootstrapFormHelper extends FormHelper {
 		if ($options['before']) {
 			$options = $this->_prepend($options);
 		}
-
-		return $this->_clearfix($name, $this->_input($name, $options), array(
+		
+		if (isset($options['type']) && $options['type'] === 'checkbox') {
+			if (!isset($options['opt-label'])) {
+				$options['opt-label'] = $options['label'];
+				$options['label'] = FALSE;
+			}
+			if (isset($options['group-label'])) {
+				$options['label'] = $options['group-label'];
+			}
+		}
+		
+		if (!empty($options['label'])) {
+			if (!is_array($options['label'])) {
+				$options['label'] = array('text' => $options['label']);
+			}
+			
+			if (empty($options['label']['class'])) {
+				$options['label']['class'] = 'control-label';
+			}
+		}
+		
+		$_ = $this->_input($name, $options, $hidden);
+		
+		return $hidden . $this->_clearfix($name, $_, array(
 			'label' => $options['label'],
 			'div' => $options['div'],
+			'type' => isset($options['type']) ? $options['type'] : NULL,
 		));
 	}
 
@@ -61,7 +84,7 @@ class BootstrapFormHelper extends FormHelper {
 	public function submit($caption = null, $options = array()) {
 		$default = array(
 			'type' => 'submit',
-			'div' => array('class' => 'actions'),
+			'div' => array('class' => 'form-actions'),
 			'class' => 'btn primary',
 			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
@@ -74,7 +97,7 @@ class BootstrapFormHelper extends FormHelper {
 		return $out;
 	}
 
-	protected function _input($name, $options) {
+	protected function _input($name, $options, &$hidden = '') {
 		$default = array(
 			'type' => null,
 			'error' => null,
@@ -92,14 +115,15 @@ class BootstrapFormHelper extends FormHelper {
 		}
 
 		if ($options['type'] === 'checkbox') {
+			$options['label'] = empty($options['opt-label']) ? FALSE : $options['opt-label'];
 			$input = $this->_checkbox($name, $options);
 		} else {
 			$input = parent::input($name, $options);
 			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
-				$input = $options['after'] .$this->_multipleCheckbox($input, $options);
+				$input  = $options['after'] . $this->_multipleCheckbox($input, $options, $hidden); 
 			}
 			elseif ($options['type'] === 'radio') {
-				$input = $this->_radio($input, $options);
+				$input = $this->_radio($input, $options, $hidden);
 			}
 		}
 		return $input;
@@ -109,18 +133,23 @@ class BootstrapFormHelper extends FormHelper {
 		$default = array(
 			'label' => null,
 			'div' => array(
-				'class' => 'input',
+				'class' => 'controls',
 			),
 		);
 		$options = Set::merge($default, $options);
 
 		$out = array();
 		if ($options['label'] !== false) {
-			$out[] = parent::label($name, $options['label']);
+			$text = $options['label']['text'];
+			if ($options['type'] === 'checkbox') {
+				unset($options['label']['text']);
+				$options['label']['for'] = '';
+			}
+			$out[] = parent::label(FALSE, $text, $options['label']);
 		}
 		$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
 
-		$clearfix = 'clearfix';
+		$clearfix = 'control-group';
 		if (parent::error($name)) {
 			$clearfix .= ' error';
 		}
@@ -151,27 +180,12 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	protected function _checkbox($name, $options) {
-		$default = array(
-			'ul' => array('class' => 'inputs-list'),
-			'li' => array(),
-		);
-
 		$input = parent::input($name, $options);
-
-		$options = Set::merge($default, $options);
-		$input = $this->Html->tag('label', $input);
-		$input = $this->Html->tag('li', $input, $options['li']);
-		$input = $this->Html->tag('ul', $input, $options['ul']);
+		$input = $this->Html->tag('label', $input, array('class'=>'checkbox'));
 		return $input;
 	}
 
-	protected function _radio($out, $options) {
-		$default = array(
-			'ul' => array('class' => 'inputs-list'),
-			'li' => array(),
-		);
-		$options = Set::merge($default, $options);
-
+	protected function _radio($out, $options, &$hidden) {
 		if (!preg_match_all('/(<input type="radio"[^>]+>)(((?!<input).)*)/m', $out, $matches)) {
 			return $out;
 		}
@@ -188,25 +202,18 @@ class BootstrapFormHelper extends FormHelper {
 
 		$lines = array();
 		foreach ($matches[0] as $key => $value) {
-			$line = $matches[1][$key] . '&nbsp;' . $this->Html->tag('span', $matches[2][$key]);
-			$line = $this->Html->tag('label', $line);
-			$lines[] = $this->Html->tag('li', $line, $options['li']);
+			$line = $matches[1][$key] . $matches[2][$key];
+			$lines[] = $this->Html->tag('label', $line, array('class'=>'radio'));
 		}
 
-		$out = $hidden;
-		$out .= $this->Html->div('clearfix', $this->Html->tag('ul', implode("\n", $lines), $options['ul']));
+		$out  = '';
+		$out .= implode("\n", $lines);
 		$out .= $error;
 		return $out;
 	}
 
-	protected function _multipleCheckbox($out, $options) {
-		$default = array(
-			'ul' => array('class' => 'inputs-list'),
-			'li' => array(),
-		);
-		$options = Set::merge($default, $options);
-
-		if (!preg_match_all('/<div[^>]+>(<input type="checkbox"[^>]+>)(<label[^>]+>)([^<]*)(<\/label>)<\/div>/m', $out, $matches)) {
+	protected function _multipleCheckbox($out, $options, &$hidden) {
+		if (!preg_match_all('/<div[^>]+>(<input type="checkbox"[^>]+>)(<label[^>]+)>([^<]*)(<\/label>)<\/div>/m', $out, $matches)) {
 			return $out;
 		}
 
@@ -222,13 +229,13 @@ class BootstrapFormHelper extends FormHelper {
 
 		$lines = array();
 		foreach ($matches[0] as $key => $value) {
-			$line = $matches[2][$key] . $matches[1][$key] . '&nbsp;';
-			$line .= $this->Html->tag('span', $matches[3][$key]) . $matches[4][$key];
-			$lines[] = $this->Html->tag('li', $line, $options['li']);
+			$line = $matches[2][$key]  . ' class="checkbox">' . $matches[1][$key];
+			$line .= $matches[3][$key] . $matches[4][$key];
+			$lines[] = $line;
 		}
 
-		$out = $hidden;
-		$out .= $this->Html->div('clearfix', $this->Html->tag('ul', implode("\n", $lines), $options['ul']));
+		$out = '';
+		$out .= implode("\n", $lines);
 		$out .= $error;
 		return $out;
 	}
