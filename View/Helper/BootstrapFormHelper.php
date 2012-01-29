@@ -1,11 +1,11 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
+App::uses('FormHelper', 'View/Helper');
 App::uses('Set', 'Utility');
 
-class BootstrapFormHelper extends AppHelper {
+class BootstrapFormHelper extends FormHelper {
 
-	public $helpers = array('Html', 'Form');
-
+	public $helpers = array('Html');
+	
 	public function input($name, $options = array()) {
 		$default = array(
 			'label' => null,
@@ -46,8 +46,8 @@ class BootstrapFormHelper extends AppHelper {
 				$out[] = $_options;
 			}
 		}
-		if ($this->Form->error($name)) {
-			$out[] = $this->Html('span', $this->Form->error($name), array(
+		if (parent::error($name)) {
+			$out[] = $this->Html('span', parent::error($name), array(
 				'class' => 'help-inline',
 			));
 		}
@@ -94,7 +94,7 @@ class BootstrapFormHelper extends AppHelper {
 		if ($options['type'] === 'checkbox') {
 			$input = $this->_checkbox($name, $options);
 		} else {
-			$input = $this->Form->input($name, $options);
+			$input = parent::input($name, $options);
 			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
 				$input = $options['after'] .$this->_multipleCheckbox($input, $options);
 			}
@@ -116,12 +116,12 @@ class BootstrapFormHelper extends AppHelper {
 
 		$out = array();
 		if ($options['label'] !== false) {
-			$out[] = $this->Form->label($name, $options['label']);
+			$out[] = parent::label($name, $options['label']);
 		}
 		$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
 
 		$clearfix = 'clearfix';
-		if ($this->Form->error($name)) {
+		if (parent::error($name)) {
 			$clearfix .= ' error';
 		}
 		return $this->Html->div($clearfix, implode("\n", $out));
@@ -156,7 +156,7 @@ class BootstrapFormHelper extends AppHelper {
 			'li' => array(),
 		);
 
-		$input = $this->Form->input($name, $options);
+		$input = parent::input($name, $options);
 
 		$options = Set::merge($default, $options);
 		$input = $this->Html->tag('label', $input);
