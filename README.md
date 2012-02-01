@@ -64,7 +64,10 @@ Output SessionHelper::flash as Bootstrap format
 
 Output Paginate as Bootstrap format
 
-	<?php echo $this->element('pagination', array(), array('plugin' => 'TwitterBootstrap')); ?>
+	// div.pagination.pagination-centered
+	<?php echo $this->BootstrapPaginator->pagination(); ?>
+	// ul.pager
+	<?php echo $this->BootstrapPaginator->pager(); ?>
 
 Breadcrumb
 
