@@ -21,6 +21,7 @@ Controller/AppController.php
 			'Session', 'Html', 'Form',
 			'TwitterBootstrap.BootstrapHtml',
 			'TwitterBootstrap.BootstrapForm',
+			'TwitterBootstrap.BootstrapPaginator',
 		);
 	}
 
