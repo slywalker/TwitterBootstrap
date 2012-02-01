@@ -7,7 +7,7 @@
 
 <section id="forms">
 	<h2>Forms</h2>
-	<?php echo $this->Form->create(false, array(
+	<?php echo $this->BootstrapForm->create(false, array(
 		'url' => '#',
 		'class' => 'form-horizontal',
 	)); ?>
@@ -68,7 +68,7 @@
 
 		</fieldset>
 
-	<?php echo $this->Form->end(); ?>
+	<?php echo $this->BootstrapForm->end(); ?>
 </section>
 
 <section id="paginate">
