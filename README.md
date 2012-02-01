@@ -10,14 +10,8 @@ About Bootstrap, from Twitter
 How to install
 --------------
 
-	$ cd YOUR_APP
-	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git Plugin/TwitterBootstrap
-	$ cd Plugin/TwitterBootstrap
-	$ git submodule update --init
-	$ cd YOUR_APP
-	$ cake twitter_bootstrap.init
-
-TwitterBootstrap.init make symlink css and js files in TwitterBootstrap/webroot.
+Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
+Move files to Plugin/TwitterBootstrap/webroot/
 
 Controller/AppController.php
 
@@ -27,7 +21,7 @@ Controller/AppController.php
 			'Session', 'Html', 'Form',
 			'TwitterBootstrap.BootstrapHtml',
 			'TwitterBootstrap.BootstrapForm',
-			'TwitterBootstrap.BootstrapSession'
+			'TwitterBootstrap.BootstrapPaginator',
 		);
 	}
 
@@ -36,38 +30,45 @@ Usage
 
 Load CSS
 
-	<?php echo $this->BootstrapHtml->css(); ?>
+	<?php echo $this->BootstrapHtml->css(); ?> load bootstrap.min.css
 
 Load JS
 
-	<?php echo $this->BootstrapHtml->script(); ?> all script
-
-or
-
-	<?php echo $this->BootstrapHtml->script('bootstrap-alerts.js'); ?>
+	<?php echo $this->BootstrapHtml->script(); ?> load bootstrap.min.js
 
 Output form input as Bootstrap format
 
-	<?php echo $this->BootstrapForm->input('name'); ?>
-	<?php echo $this->BootstrapForm->inlineInputs('name', array(
-		'first_name' => array('class' => 'small'),
-		'&nbsp;',
-		'last_name' => array('class' => 'small'),
-	)); ?>
-	<?php echo $this->BootstrapForm->submit('Submit'); ?>
+	<?php echo $this->BootstrapForm->cretate('User'); ?>
+		<?php echo $this->BootstrapForm->input('name'); ?>
+		<?php echo $this->BootstrapForm->inlineInputs('name', array(
+			'first_name' => array('class' => 'small'),
+			'&nbsp;',
+			'last_name' => array('class' => 'small'),
+		)); ?>
+		<?php echo $this->BootstrapForm->submit('Submit'); ?>
+	<?php echo $this->BootstrapForm->end(); ?>
 
 Output SessionHelper::flash as Bootstrap format
 
 	// SomethingsController
-	$this->Session->setFlash(__('The something has been saved'), 'default', array('class' => 'success'));
-	$this->Session->setFlash(__('The something could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+	$this->Session->setFlash(__('The something has been saved'), 'alert', array(
+		'plugin' => 'TwitterBootstrap',
+		'class' => 'alert-success'
+	));
+	$this->Session->setFlash(__('The something could not be saved. Please, try again.'), 'alert', array(
+		'plugin' => 'TwitterBootstrap',
+		'class' => 'alert-error'
+	));
 
 	// View
-	<?php echo $this->BootstrapSession->flash(); ?>
+	<?php echo $this->Session->flash(); ?>
 
 Output Paginate as Bootstrap format
 
-	<?php echo $this->element('pagination', array(), array('plugin' => 'TwitterBootstrap')); ?>
+	// div.pagination.pagination-centered
+	<?php echo $this->BootstrapPaginator->pagination(); ?>
+	// ul.pager
+	<?php echo $this->BootstrapPaginator->pager(); ?>
 
 Breadcrumb
 

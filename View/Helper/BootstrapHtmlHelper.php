@@ -6,7 +6,7 @@ class BootstrapHtmlHelper extends AppHelper {
 
 	public $helpers = array('Html');
 
-	public function css($url = 'bootstrap.min', $rel = null, $options = array()) {
+	public function css($url = 'bootstrap.min.css', $rel = null, $options = array()) {
 		$pluginRoot = dirname(dirname(__DIR__));
 		$pluginName = end(explode(DS, $pluginRoot));
 
@@ -14,25 +14,11 @@ class BootstrapHtmlHelper extends AppHelper {
 		return $this->Html->css($url, $rel, $options);
 	}
 
-	public function script($url = 'all', $options = array()) {
+	public function script($url = 'bootstrap.min.js', $options = array()) {
 		$pluginRoot = dirname(dirname(__DIR__));
 		$pluginName = end(explode(DS, $pluginRoot));
-		$jsPath = $pluginRoot . DS . 'webroot' . DS . 'js' . DS;
 
-		if ($url === 'all') {
-			$url = array(
-				'bootstrap-twipsy.js',
-				'bootstrap-popover.js',
-			);
-			foreach (glob($jsPath . '*') as $js) {
-				$url[] = basename($js);
-			}
-			$url = array_unique($url);
-		}
-		$url = (array) $url;
-		array_walk($url, function(&$value) use ($pluginName) {
-			$value = '/' . Inflector::underscore($pluginName) . '/js/' . $value;
-		});
+		$url = '/' . Inflector::underscore($pluginName) . '/js/' . $url;
 		return $this->Html->script($url, $options);
 	}
 
