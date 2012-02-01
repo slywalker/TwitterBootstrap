@@ -5,7 +5,7 @@ App::uses('Set', 'Utility');
 class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html');
-	
+
 	public function input($name, $options = array()) {
 		$default = array(
 			'label' => null,
@@ -21,7 +21,7 @@ class BootstrapFormHelper extends FormHelper {
 		if ($options['before']) {
 			$options = $this->_prepend($options);
 		}
-		
+
 		if (isset($options['type']) && $options['type'] === 'checkbox') {
 			if (!isset($options['opt-label'])) {
 				$options['opt-label'] = $options['label'];
@@ -31,19 +31,19 @@ class BootstrapFormHelper extends FormHelper {
 				$options['label'] = $options['group-label'];
 			}
 		}
-		
+
 		if (!empty($options['label'])) {
 			if (!is_array($options['label'])) {
 				$options['label'] = array('text' => $options['label']);
 			}
-			
+
 			if (empty($options['label']['class'])) {
 				$options['label']['class'] = 'control-label';
 			}
 		}
-		
+
 		$_ = $this->_input($name, $options, $hidden);
-		
+
 		return $hidden . $this->_clearfix($name, $_, array(
 			'label' => $options['label'],
 			'div' => $options['div'],
@@ -85,7 +85,7 @@ class BootstrapFormHelper extends FormHelper {
 		$default = array(
 			'type' => 'submit',
 			'div' => array('class' => 'form-actions'),
-			'class' => 'btn primary',
+			'class' => 'btn btn-primary',
 			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
 		$options += $default;
@@ -103,7 +103,7 @@ class BootstrapFormHelper extends FormHelper {
 			'error' => null,
 		);
 		$options = Set::merge($default, $options);
-		
+
 		$options['label'] = $options['div'] = $options['legend'] = false;
 		if ($options['error'] !== false) {
 			$options['error'] = array(
@@ -120,7 +120,7 @@ class BootstrapFormHelper extends FormHelper {
 		} else {
 			$input = parent::input($name, $options);
 			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
-				$input  = $options['after'] . $this->_multipleCheckbox($input, $options, $hidden); 
+				$input  = $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
 			}
 			elseif ($options['type'] === 'radio') {
 				$input = $this->_radio($input, $options, $hidden);
@@ -162,7 +162,7 @@ class BootstrapFormHelper extends FormHelper {
 		}
 		$afterDefault = array(
 			'text' => '',
-			'wrap' => 'span',
+			'wrap' => 'p',
 			'class' => 'help-block',
 		);
 		$after += $afterDefault;
