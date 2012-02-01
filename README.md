@@ -37,13 +37,15 @@ Load JS
 
 Output form input as Bootstrap format
 
-	<?php echo $this->BootstrapForm->input('name'); ?>
-	<?php echo $this->BootstrapForm->inlineInputs('name', array(
-		'first_name' => array('class' => 'small'),
-		'&nbsp;',
-		'last_name' => array('class' => 'small'),
-	)); ?>
-	<?php echo $this->BootstrapForm->submit('Submit'); ?>
+	<?php echo $this->BootstrapForm->cretate('User'); ?>
+		<?php echo $this->BootstrapForm->input('name'); ?>
+		<?php echo $this->BootstrapForm->inlineInputs('name', array(
+			'first_name' => array('class' => 'small'),
+			'&nbsp;',
+			'last_name' => array('class' => 'small'),
+		)); ?>
+		<?php echo $this->BootstrapForm->submit('Submit'); ?>
+	<?php echo $this->BootstrapForm->end(); ?>
 
 Output SessionHelper::flash as Bootstrap format
 

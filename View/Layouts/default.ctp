@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Bootstrap, from Twitter</title>
+	<title>TwitterBootstrap Plugin for CakePHP2.0</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -40,12 +40,12 @@
 					<span class="i-bar"></span>
 					<span class="i-bar"></span>
 				</a>
-				<a class="brand" href="#">Project name</a>
+				<a class="brand" href="#">TwitterBootstrap Plugin for CakePHP2.0</a>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
+						<li><a href="#forms">Forms</a></li>
+						<li><a href="#paginate">Paginate</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
@@ -54,8 +54,7 @@
 
 	<div class="container">
 
-		<h1>Bootstrap starter template</h1>
-		<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+		<h1>TwitterBootstrap Plugin for CakePHP2.0</h1>
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $content_for_layout; ?>
 
