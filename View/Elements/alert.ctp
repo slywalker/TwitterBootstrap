@@ -1,12 +1,12 @@
 <?php
 if (!isset($class)) {
-	$class = 'warning';
+	$class = false;
 }
 if (!isset($close)) {
 	$close = true;
 }
 ?>
-<div class="alert-message <?php echo $class; ?>" data-alert="close">
+<div class="alert<?php echo ($class) ? ' ' . $class : null; ?>"<?php echo ($close) ? ' data-alert="close"' : null; ?>>
 <?php if ($close): ?>
 	<a class="close" href="#">×</a>
 <?php endif; ?>

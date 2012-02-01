@@ -21,7 +21,6 @@ Controller/AppController.php
 			'Session', 'Html', 'Form',
 			'TwitterBootstrap.BootstrapHtml',
 			'TwitterBootstrap.BootstrapForm',
-			'TwitterBootstrap.BootstrapSession'
 		);
 	}
 
@@ -53,11 +52,17 @@ Output form input as Bootstrap format
 Output SessionHelper::flash as Bootstrap format
 
 	// SomethingsController
-	$this->Session->setFlash(__('The something has been saved'), 'default', array('class' => 'success'));
-	$this->Session->setFlash(__('The something could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+	$this->Session->setFlash(__('The something has been saved'), 'alert', array(
+		'plugin' => 'TwitterBootstrap',
+		'class' => 'alert-success'
+	));
+	$this->Session->setFlash(__('The something could not be saved. Please, try again.'), 'alert', array(
+		'plugin' => 'TwitterBootstrap',
+		'class' => 'alert-error'
+	));
 
 	// View
-	<?php echo $this->BootstrapSession->flash(); ?>
+	<?php echo $this->Session->flash(); ?>
 
 Output Paginate as Bootstrap format
 
