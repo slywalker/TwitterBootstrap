@@ -29,15 +29,11 @@ Usage
 
 Load CSS
 
-	<?php echo $this->BootstrapHtml->css(); ?>
+	<?php echo $this->BootstrapHtml->css(); ?> load bootstrap.min.css
 
 Load JS
 
-	<?php echo $this->BootstrapHtml->script(); ?> all script
-
-or
-
-	<?php echo $this->BootstrapHtml->script('bootstrap-alerts.js'); ?>
+	<?php echo $this->BootstrapHtml->script(); ?> load bootstrap.min.js
 
 Output form input as Bootstrap format
 
