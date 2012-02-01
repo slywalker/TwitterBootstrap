@@ -1,3 +1,5 @@
+<?php $this->loadHelper('TwitterBootstrap.BootstrapHtml'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
