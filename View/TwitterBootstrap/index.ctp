@@ -88,3 +88,11 @@
 	<?php echo $this->BootstrapPaginator->pagination(array('model' => 'Example')); ?>
 	<?php echo $this->BootstrapPaginator->pager(array('model' => 'Example')); ?>
 </section>
+
+<section id="breadcrumb">
+	<?php echo $this->BootstrapHtml->breadcrumb(array(
+		$this->Html->link('one', '/one'),
+		$this->Html->link('two', '/two'),
+		'three',
+	)); ?>
+</section>

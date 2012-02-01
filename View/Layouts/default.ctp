@@ -46,6 +46,7 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#forms">Forms</a></li>
 						<li><a href="#paginate">Paginate</a></li>
+						<li><a href="#breadcrumb">Breadcrumb</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
