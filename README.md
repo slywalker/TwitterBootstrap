@@ -10,14 +10,8 @@ About Bootstrap, from Twitter
 How to install
 --------------
 
-	$ cd YOUR_APP
-	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git Plugin/TwitterBootstrap
-	$ cd Plugin/TwitterBootstrap
-	$ git submodule update --init
-	$ cd YOUR_APP
-	$ cake twitter_bootstrap.init
-
-TwitterBootstrap.init make symlink css and js files in TwitterBootstrap/webroot.
+Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
+Move files to Plugin/TwitterBootstrap/webroot/
 
 Controller/AppController.php
 
