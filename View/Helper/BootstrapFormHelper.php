@@ -132,6 +132,7 @@ class BootstrapFormHelper extends FormHelper {
 	protected function _clearfix($name, $input, $options) {
 		$default = array(
 			'label' => null,
+			'type' => null,
 			'div' => array(
 				'class' => 'controls',
 			),
