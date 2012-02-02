@@ -64,6 +64,18 @@
 				'cols' => false,
 			)); ?>
 
+			<?php echo $this->BootstrapForm->inlineInputs('Inline inputs', array(
+				'first_name' => array(
+					'class' => 'input-small',
+					'placeholder' => 'First Name',
+				),
+				'&nbsp;',
+				'last_name' => array(
+					'class' => 'input-small',
+					'placeholder' => 'Last Name',
+				),
+			)); ?>
+
 			<?php echo $this->BootstrapForm->submit('Save changes'); ?>
 
 		</fieldset>
