@@ -19,6 +19,9 @@
 		body {
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 		}
+		section {
+			padding-top: 60px;
+		}
 	</style>
 
 	<!-- Le fav and touch icons -->
@@ -30,12 +33,13 @@
 	-->
 </head>
 
-<body>
+<body data-spy="scroll">
 
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="i-bar"></span>
 					<span class="i-bar"></span>
 					<span class="i-bar"></span>
 					<span class="i-bar"></span>

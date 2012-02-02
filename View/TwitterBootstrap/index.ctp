@@ -102,6 +102,7 @@
 </section>
 
 <section id="breadcrumb">
+	<h2>Breadcrumb</h2>
 	<?php echo $this->BootstrapHtml->breadcrumb(array(
 		$this->Html->link('one', '/one'),
 		$this->Html->link('two', '/two'),
