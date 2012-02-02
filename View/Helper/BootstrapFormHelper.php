@@ -6,6 +6,14 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html');
 
+	public function create($model, $options = array()) {
+		$default = array(
+			'class' => 'form-horizontal',
+		);
+		$options = Set::merge($default, $options);
+		return parent::create($model, $options);
+	}
+
 	public function input($name, $options = array()) {
 		$default = array(
 			'label' => null,
