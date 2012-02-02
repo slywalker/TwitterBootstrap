@@ -63,6 +63,12 @@ Output SessionHelper::flash as Bootstrap format
 	// View
 	<?php echo $this->Session->flash(); ?>
 
+	// Auth
+	<?php echo $this->Session->flash('auth', array(
+		'element' => 'alert',
+		'params' => array('plugin' => 'TwitterBootstrap'),
+	)); ?>
+
 Output Paginate as Bootstrap format
 
 	// div.pagination.pagination-centered

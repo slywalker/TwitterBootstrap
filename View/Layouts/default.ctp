@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>TwitterBootstrap Plugin for CakePHP2.0</title>
+	<title><?php echo $title_for_layout; ?></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -19,6 +19,9 @@
 		body {
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 		}
+		section {
+			padding-top: 60px;
+		}
 	</style>
 
 	<!-- Le fav and touch icons -->
@@ -30,35 +33,33 @@
 	-->
 </head>
 
-<body>
+<body data-spy="scroll">
 
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container">
+			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="i-bar"></span>
-					<span class="i-bar"></span>
 					<span class="i-bar"></span>
 				</a>
 				<a class="brand" href="#">TwitterBootstrap Plugin for CakePHP2.0</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#forms">Forms</a></li>
-						<li><a href="#paginate">Paginate</a></li>
-						<li><a href="#breadcrumb">Breadcrumb</a></li>
+						<li><?php echo $this->Html->link('Example', array(
+							'admin' => false,
+							'plugin' => 'twitter_bootstrap',
+							'controller' => 'twitter_bootstrap',
+							'action' => 'index',
+						)); ?></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
 
-	<div class="container">
-
-		<h1>TwitterBootstrap Plugin for CakePHP2.0</h1>
+	<div class="container-fluid">
+		<h1><?php echo $title_for_layout; ?></h1>
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $content_for_layout; ?>
-
 	</div> <!-- /container -->
 
 	<!-- Le javascript
@@ -67,22 +68,5 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<?php echo $this->BootstrapHtml->script(); ?>
 	<?php echo $scripts_for_layout; ?>
-	<!--
-	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-	<script src="../assets/js/tests/vendor/jquery.js"></script>
-	<script src="../assets/js/bootstrap-transition.js"></script>
-	<script src="../assets/js/bootstrap-alert.js"></script>
-	<script src="../assets/js/bootstrap-modal.js"></script>
-	<script src="../assets/js/bootstrap-dropdown.js"></script>
-	<script src="../assets/js/bootstrap-scrollspy.js"></script>
-	<script src="../assets/js/bootstrap-tab.js"></script>
-	<script src="../assets/js/bootstrap-tooltip.js"></script>
-	<script src="../assets/js/bootstrap-popover.js"></script>
-	<script src="../assets/js/bootstrap-button.js"></script>
-	<script src="../assets/js/bootstrap-collapse.js"></script>
-	<script src="../assets/js/bootstrap-carousel.js"></script>
-	<script src="../assets/js/bootstrap-typeahead.js"></script>
-	-->
-
 </body>
 </html>

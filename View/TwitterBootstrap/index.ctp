@@ -1,3 +1,5 @@
+<?php $this->set('title_for_layout', 'TwitterBootstrap Plugin for CakePHP2.0'); ?>
+
 <section id="alerts">
 	<h2>Alerts</h2>
 	<?php echo $this->Session->flash('notice'); ?>
@@ -9,7 +11,6 @@
 	<h2>Forms</h2>
 	<?php echo $this->BootstrapForm->create(false, array(
 		'url' => '#',
-		'class' => 'form-horizontal',
 	)); ?>
 
 		<fieldset>
@@ -102,6 +103,7 @@
 </section>
 
 <section id="breadcrumb">
+	<h2>Breadcrumb</h2>
 	<?php echo $this->BootstrapHtml->breadcrumb(array(
 		$this->Html->link('one', '/one'),
 		$this->Html->link('two', '/two'),

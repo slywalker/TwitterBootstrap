@@ -6,8 +6,17 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html');
 
+	public function create($model, $options = array()) {
+		$default = array(
+			'class' => 'form-horizontal',
+		);
+		$options = Set::merge($default, $options);
+		return parent::create($model, $options);
+	}
+
 	public function input($name, $options = array()) {
 		$default = array(
+			'type' => null,
 			'label' => null,
 			'before' => null, // to convert .input-prepend
 			'after' => null, // to convert .help-block
@@ -22,7 +31,7 @@ class BootstrapFormHelper extends FormHelper {
 			$options = $this->_prepend($options);
 		}
 
-		if (isset($options['type']) && $options['type'] === 'checkbox') {
+		if ($options['type'] === 'checkbox') {
 			if (!isset($options['opt-label'])) {
 				$options['opt-label'] = $options['label'];
 				$options['label'] = FALSE;
@@ -47,7 +56,7 @@ class BootstrapFormHelper extends FormHelper {
 		return $hidden . $this->_clearfix($name, $_, array(
 			'label' => $options['label'],
 			'div' => $options['div'],
-			'type' => isset($options['type']) ? $options['type'] : NULL,
+			'type' => $options['type'],
 		));
 	}
 
