@@ -3,7 +3,7 @@ App::uses('PaginatorHelper', 'View/Helper');
 
 class BootstrapPaginatorHelper extends PaginatorHelper {
 
-	public function pagination($options) {
+	public function pagination($options = array()) {
 		$default = array(
 			'units' => array('first', 'prev', 'numbers', 'next', 'last'),
 			'div' => 'pagination pagination-centered',
@@ -26,7 +26,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		return $this->Html->div($class, $this->Html->tag('ul', implode("\n", $out)));
 	}
 
-	public function pager($options) {
+	public function pager($options = array()) {
 		$default = array(
 			'ul' => 'pager',
 			'prev' => 'Previous',
