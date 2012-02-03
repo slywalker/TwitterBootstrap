@@ -72,7 +72,26 @@ if (count($components)):
 	endfor;
 	echo ");\n";
 endif;
+?>
 
+/**
+ * Utility for flash message using Twitter-Bootstrap.
+ *
+ * @param string $message message body
+ * @param string $style css class name fpllows "alert-"
+ * @param string $template partialy rendered element name
+ * @return void
+ */
+	protected function flashAlert($message, $style='success', $template='alert') {
+		$this->Session->setFlash($message, $template,
+			array(
+				'plugin' => 'TwitterBootstrap',
+				'class' => 'alert-' . $style
+			)
+		);
+	}
+
+<?php
 echo $actions;
 
 endif; ?>
