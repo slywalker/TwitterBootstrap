@@ -5,6 +5,8 @@ class TwitterBootstrapController extends AppController {
 
 	public $uses = array();
 
+	public $layout = 'bootstrap';
+
 	public $components = array('Session');
 
 	public $helpers = array(
