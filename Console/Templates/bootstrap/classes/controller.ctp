@@ -26,6 +26,17 @@ class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>App
  */
 	public $layout = 'bootstrap';
 
+/**
+ * This magic let your view use layout files included TwitterBootstrap plugin
+ * instead of CakePHP's defaults. You can remove this filter after copying
+ * them as your own layouts in View/Layouts and View/Elements.
+ *
+ * @return void
+ */
+	public function beforeRender() {
+		$this->plugin = 'TwitterBootstrap';
+	}
+
 <?php if ($isScaffold): ?>
 /**
  * Scaffold
