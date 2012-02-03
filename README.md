@@ -11,7 +11,7 @@ How to install
 --------------
 
 Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
-Move files to Plugin/TwitterBootstrap/webroot/
+Move files to app/Plugin/TwitterBootstrap/webroot/
 
 Controller/AppController.php
 
@@ -24,6 +24,8 @@ Controller/AppController.php
 			'TwitterBootstrap.BootstrapPaginator',
 		);
 	}
+
+Copy app/Plugin/TwitterBootstrap/View/Layouts/bootstrap.ctp to app/View/Layouts/bootstrap.ctp
 
 Usage
 -----
