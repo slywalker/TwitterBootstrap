@@ -35,6 +35,9 @@ class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>App
 	public $scaffold;
 <?php else: ?>
 <?php
+if (!is_array($helpers)) {
+	$helpers = array();
+}
 $helpers += array(
 	'TwitterBootstrap.BootstrapHtml',
 	'TwitterBootstrap.BootstrapForm',
