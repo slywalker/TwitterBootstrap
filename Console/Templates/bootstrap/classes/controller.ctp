@@ -35,6 +35,9 @@ class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>App
 	public $scaffold;
 <?php else: ?>
 <?php
+if (!is_array($helpers)) {
+	$helpers = array();
+}
 $helpers += array(
 	'TwitterBootstrap.BootstrapHtml',
 	'TwitterBootstrap.BootstrapForm',
@@ -53,6 +56,9 @@ if (count($helpers)):
 	echo ");\n";
 endif;
 
+if (!is_array($components)) {
+	$components = array();
+}
 $components += array('Session');
 if (count($components)):
 	echo "/**\n * Components\n *\n * @var array\n */\n";
