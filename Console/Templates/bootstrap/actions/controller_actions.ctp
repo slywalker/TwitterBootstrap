@@ -17,7 +17,7 @@
 	public function <?php echo $admin ?>view($id = null) {
 		$this-><?php echo $currentModelName; ?>->id = $id;
 		if (!$this-><?php echo $currentModelName; ?>->exists()) {
-			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
+			throw new NotFoundException(__('Invalid %s', __('<?php echo strtolower($singularHumanName); ?>')));
 		}
 		$this->set('<?php echo $singularName; ?>', $this-><?php echo $currentModelName; ?>->read(null, $id));
 	}
@@ -34,7 +34,7 @@
 			if ($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(
-					__('The <?php echo strtolower($singularHumanName); ?> has been saved'),
+					__('The %s has been saved', __('<?php echo strtolower($singularHumanName); ?>')),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -43,12 +43,12 @@
 				);
 				$this->redirect(array('action' => 'index'));
 <?php else: ?>
-				$this->flash(__('<?php echo ucfirst(strtolower($currentModelName)); ?> saved.'), array('action' => 'index'));
+				$this->flash(__('%s saved.', __('<?php echo ucfirst(strtolower($currentModelName)); ?>')), array('action' => 'index'));
 <?php endif; ?>
 			} else {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(
-					__('The <?php echo strtolower($singularHumanName); ?> could not be saved. Please, try again.'),
+					__('The %s could not be saved. Please, try again.', __('<?php echo strtolower($singularHumanName); ?>')),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -85,13 +85,13 @@
 	public function <?php echo $admin; ?>edit($id = null) {
 		$this-><?php echo $currentModelName; ?>->id = $id;
 		if (!$this-><?php echo $currentModelName; ?>->exists()) {
-			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
+			throw new NotFoundException(__('Invalid %s', __('<?php echo strtolower($singularHumanName); ?>')));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(
-					__('The <?php echo strtolower($singularHumanName); ?> has been saved'),
+					__('The %s has been saved', __('<?php echo strtolower($singularHumanName); ?>')),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -100,12 +100,12 @@
 				);
 				$this->redirect(array('action' => 'index'));
 <?php else: ?>
-				$this->flash(__('The <?php echo strtolower($singularHumanName); ?> has been saved.'), array('action' => 'index'));
+				$this->flash(__('The %s has been saved.', __('<?php echo strtolower($singularHumanName); ?>')), array('action' => 'index'));
 <?php endif; ?>
 			} else {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(
-					__('The <?php echo strtolower($singularHumanName); ?> could not be saved. Please, try again.'),
+					__('The %s could not be saved. Please, try again.', __('<?php echo strtolower($singularHumanName); ?>')),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -146,12 +146,12 @@
 		}
 		$this-><?php echo $currentModelName; ?>->id = $id;
 		if (!$this-><?php echo $currentModelName; ?>->exists()) {
-			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
+			throw new NotFoundException(__('Invalid %s', __('<?php echo strtolower($singularHumanName); ?>')));
 		}
 		if ($this-><?php echo $currentModelName; ?>->delete()) {
 <?php if ($wannaUseSession): ?>
 			$this->Session->setFlash(
-				__('The <?php echo strtolower($singularHumanName); ?> deleted'),
+				__('The %s deleted', __('<?php echo strtolower($singularHumanName); ?>')),
 				'alert',
 				array(
 					'plugin' => 'TwitterBootstrap',
@@ -160,12 +160,12 @@
 			);
 			$this->redirect(array('action' => 'index'));
 <?php else: ?>
-			$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted'), array('action' => 'index'));
+			$this->flash(__('%s deleted', __('<?php echo ucfirst(strtolower($singularHumanName)); ?>')), array('action' => 'index'));
 <?php endif; ?>
 		}
 <?php if ($wannaUseSession): ?>
 		$this->Session->setFlash(
-			__('The <?php echo strtolower($singularHumanName); ?> was not deleted'),
+			__('The %s was not deleted', __('<?php echo strtolower($singularHumanName); ?>')),
 			'alert',
 			array(
 				'plugin' => 'TwitterBootstrap',
@@ -173,7 +173,7 @@
 			)
 		);
 <?php else: ?>
-		$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> was not deleted'), array('action' => 'index'));
+		$this->flash(__('%s was not deleted', __('<?php echo ucfirst(strtolower($singularHumanName)); ?>')), array('action' => 'index'));
 <?php endif; ?>
 		$this->redirect(array('action' => 'index'));
 	}
