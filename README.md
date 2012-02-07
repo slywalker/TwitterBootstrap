@@ -17,6 +17,16 @@ Controller/AppController.php
 
 	<?php
 	class AppController extends Controller {
+
+		// Usig as plugin's helper
+		public $helpers = array(
+			'Session', 'Html', 'Form',
+			'TwitterBootstrap.BootstrapHtml',
+			'TwitterBootstrap.BootstrapForm',
+			'TwitterBootstrap.BootstrapPaginator',
+		);
+
+		// Using as alias of core helper
 		public $helpers = array(
 			'Session',
 			'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
@@ -27,7 +37,7 @@ Controller/AppController.php
 
 Copy app/Plugin/TwitterBootstrap/View/Layouts/bootstrap.ctp to app/View/Layouts/bootstrap.ctp
 
-Usage
+Usage (Using as alias of core helper)
 -----
 
 Load CSS
