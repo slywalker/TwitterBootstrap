@@ -22,6 +22,7 @@ class BootstrapFormHelper extends FormHelper {
 			'after' => null, // to convert .help-block
 			'div' => array(),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options = Set::merge($default, $options);
 
 		if ($options['after']) {
