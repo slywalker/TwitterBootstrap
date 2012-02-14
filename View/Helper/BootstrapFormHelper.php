@@ -6,7 +6,7 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html');
 
-	public function create($model, $options = array()) {
+	public function create($model = null, $options = array()) {
 		$default = array(
 			'class' => 'form-horizontal',
 		);

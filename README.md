@@ -31,7 +31,7 @@ Controller/AppController.php
 			'Session',
 			'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
 			'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
-			'Pagenator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
+			'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 		);
 	}
 
