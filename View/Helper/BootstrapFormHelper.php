@@ -21,6 +21,7 @@ class BootstrapFormHelper extends FormHelper {
 			'before' => null, // to convert .input-prepend
 			'after' => null, // to convert .help-block
 			'div' => array(),
+			'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
 		);
 		$options = Set::merge($default, $options);
 
