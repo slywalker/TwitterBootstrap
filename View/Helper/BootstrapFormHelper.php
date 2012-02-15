@@ -23,6 +23,7 @@ class BootstrapFormHelper extends FormHelper {
 			'div' => array(),
 			'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options = Set::merge($default, $options);
 
 		if ($options['after']) {
@@ -67,6 +68,7 @@ class BootstrapFormHelper extends FormHelper {
 			'after' => null, // to convert .help-block
 			'div' => array(),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options = Set::merge($default, $options);
 
 		$out = array();
@@ -98,12 +100,15 @@ class BootstrapFormHelper extends FormHelper {
 			'class' => 'btn btn-primary',
 			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options += $default;
 		$divOptions = $options['div'];
 		unset($options['div']);
 
 		$out = $this->Html->tag('button', $caption, $options);
-		$out = $this->Html->tag('div', $out, $divOptions);
+		if ($divOptions) {
+			$out = $this->Html->tag('div', $out, $divOptions);
+		}
 		return $out;
 	}
 
@@ -130,7 +135,7 @@ class BootstrapFormHelper extends FormHelper {
 		} else {
 			$input = parent::input($name, $options);
 			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
-				$input  = $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
+				$input	= $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
 			}
 			elseif ($options['type'] === 'radio') {
 				$input = $this->_radio($input, $options, $hidden);
@@ -158,13 +163,17 @@ class BootstrapFormHelper extends FormHelper {
 			}
 			$out[] = parent::label(FALSE, $text, $options['label']);
 		}
-		$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
-
-		$clearfix = 'control-group';
-		if (parent::error($name)) {
-			$clearfix .= ' error';
+		if ($options['div'] !== false) {
+			$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
+			$clearfix = 'control-group';
+			if (parent::error($name)) {
+				$clearfix .= ' error';
+			}
+			return $this->Html->div($clearfix, implode("\n", $out));
+		} else {
+			$out[] = $input;
+			return implode("\n", $out);
 		}
-		return $this->Html->div($clearfix, implode("\n", $out));
 	}
 
 	protected function _after($after) {
