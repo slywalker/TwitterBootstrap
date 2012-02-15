@@ -1,11 +1,13 @@
-TwitterBootstrap Plugin for CakePHP2
-====================================
+TwitterBootstrap Plugin for CakePHP 2.0
+=======================================
 
 About Bootstrap, from Twitter
 
 [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
 
 [twitter/bootstrap - GitHub](https://github.com/twitter/bootstrap)
+
+I hope that "Bootstrap, from Twitter" will become the default design in CakePHP 2.1
 
 How to install
 --------------
