@@ -107,7 +107,7 @@ class BootstrapFormHelper extends FormHelper {
 		unset($options['div']);
 
 		$out = $this->Html->tag('button', $caption, $options);
-		if (!$divOptions) {
+		if ($divOptions === false) {
 			return $out;
 		}
 		$out = $this->Html->tag('div', $out, $divOptions);
