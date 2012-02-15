@@ -107,6 +107,9 @@ class BootstrapFormHelper extends FormHelper {
 		unset($options['div']);
 
 		$out = $this->Html->tag('button', $caption, $options);
+		if (!$divOptions) {
+			return $out;
+		}
 		$out = $this->Html->tag('div', $out, $divOptions);
 		return $out;
 	}
@@ -134,7 +137,7 @@ class BootstrapFormHelper extends FormHelper {
 		} else {
 			$input = parent::input($name, $options);
 			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
-				$input  = $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
+				$input	= $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
 			}
 			elseif ($options['type'] === 'radio') {
 				$input = $this->_radio($input, $options, $hidden);
@@ -161,6 +164,10 @@ class BootstrapFormHelper extends FormHelper {
 				$options['label']['for'] = '';
 			}
 			$out[] = parent::label(FALSE, $text, $options['label']);
+		}
+		if ($options['div'] === false) {
+			$out[] = $input;
+			return implode("\n", $out);
 		}
 		$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
 
