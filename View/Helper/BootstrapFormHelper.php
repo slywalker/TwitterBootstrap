@@ -23,6 +23,7 @@ class BootstrapFormHelper extends FormHelper {
 			'div' => array(),
 			'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options = Set::merge($default, $options);
 
 		if ($options['after']) {
@@ -68,6 +69,7 @@ class BootstrapFormHelper extends FormHelper {
 			'after' => null, // to convert .help-block
 			'div' => array(),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options = Set::merge($default, $options);
 
 		$out = array();
@@ -99,6 +101,7 @@ class BootstrapFormHelper extends FormHelper {
 			'class' => 'btn btn-primary',
 			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
+		$default = Set::merge($default, $this->_inputDefaults);
 		$options += $default;
 		$divOptions = $options['div'];
 		unset($options['div']);
