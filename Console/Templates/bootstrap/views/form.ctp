@@ -13,7 +13,12 @@
 						if ($field == $primaryKey) {
 							$id = "\t\t\t\techo \$this->BootstrapForm->hidden('{$field}');\n";
 						} else {
-							echo "\t\t\t\techo \$this->BootstrapForm->input('{$field}');\n";
+							if($this->templateVars['schema'][$field]['null'] == false){
+								$required = ",array(\n\t\t\t\t\t\t\t\t'required'=>'required',\n\t\t\t\t\t\t\t\t'label'=>'<span class=\"label label-important\">Require</span> {$field}')";
+							}else{
+								$required = null;
+							}
+							echo "\t\t\t\techo \$this->BootstrapForm->input('{$field}'{$required});\n";
 						}
 					}
 				}
