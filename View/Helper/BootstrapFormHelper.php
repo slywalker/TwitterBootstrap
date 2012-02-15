@@ -41,6 +41,7 @@ class BootstrapFormHelper extends FormHelper {
 			if (isset($options['group-label'])) {
 				$options['label'] = $options['group-label'];
 			}
+			$options['format'] = array('before', 'input', 'between', 'label', 'error', 'after');
 		}
 
 		if (!empty($options['label'])) {
@@ -106,7 +107,7 @@ class BootstrapFormHelper extends FormHelper {
 		unset($options['div']);
 
 		$out = $this->Html->tag('button', $caption, $options);
-		if (!$divOptions) {
+		if ($divOptions === false) {
 			return $out;
 		}
 		$out = $this->Html->tag('div', $out, $divOptions);
