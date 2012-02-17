@@ -101,7 +101,6 @@ class BootstrapFormHelper extends FormHelper {
 			'class' => 'btn btn-primary',
 			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
 		);
-		$default = Set::merge($default, $this->_inputDefaults);
 		$options += $default;
 		$divOptions = $options['div'];
 		unset($options['div']);
@@ -126,7 +125,7 @@ class BootstrapFormHelper extends FormHelper {
 			$options['error'] = array(
 				'attributes' => array(
 					'wrap' => 'span',
-					'class' => 'help-inline',
+					'class' => 'help-inline error-message',
 				),
 			);
 		}
