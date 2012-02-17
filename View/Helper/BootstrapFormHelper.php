@@ -125,7 +125,7 @@ class BootstrapFormHelper extends FormHelper {
 			$options['error'] = array(
 				'attributes' => array(
 					'wrap' => 'span',
-					'class' => 'help-inline',
+					'class' => 'help-inline error-message',
 				),
 			);
 		}
