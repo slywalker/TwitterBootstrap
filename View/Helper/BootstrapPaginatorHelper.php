@@ -158,7 +158,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		}
 		unset($options['title']);
 
-		return (parent::first($title, $options)) ?: $this->Html->tag(
+		return (parent::first($title, $options)) ? (parent::first($title, $options)) : $this->Html->tag(
 			$options['tag'],
 			$this->link($title, array(), $options),
 			array('class' => 'disabled')
@@ -183,7 +183,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 
 		$params = (array) $this->params($options['model']);
 
-		return (parent::last($title, $options)) ?: $this->Html->tag(
+		return (parent::last($title, $options)) ? (parent::last($title, $options)) : $this->Html->tag(
 			$options['tag'],
 			$this->link($title, array(), $options),
 			array('class' => 'disabled')

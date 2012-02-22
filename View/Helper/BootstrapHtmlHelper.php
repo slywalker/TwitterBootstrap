@@ -9,7 +9,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 	public function css($url = null, $rel = null, $options = array()) {
 		if (empty($url)) {
 			$url = 'bootstrap.min.css';
-			$pluginRoot = dirname(dirname(__DIR__));
+			$pluginRoot = dirname(dirname(DIRNAME(__FILE__)));
 			$pluginName = end(explode(DS, $pluginRoot));
 			$url = '/' . Inflector::underscore($pluginName) . '/css/' . $url;
 		}
@@ -17,7 +17,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 	}
 
 	public function bootstrapCss($url = 'bootstrap.min.css', $rel = null, $options = array()) {
-		$pluginRoot = dirname(dirname(__DIR__));
+		$pluginRoot = dirname(dirname(DIRNAME(__FILE__)));
 		$pluginName = end(explode(DS, $pluginRoot));
 
 		$url = '/' . Inflector::underscore($pluginName) . '/css/' . $url;
@@ -27,7 +27,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 	public function script($url = null, $options = array()) {
 		if (empty($url)) {
 			$url = 'bootstrap.min.js';
-			$pluginRoot = dirname(dirname(__DIR__));
+			$pluginRoot = dirname(dirname(DIRNAME(__FILE__)));
 			$pluginName = end(explode(DS, $pluginRoot));
 			$url = '/' . Inflector::underscore($pluginName) . '/js/' . $url;
 		}
@@ -35,7 +35,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 	}
 
 	public function bootstrapScript($url = 'bootstrap.min.js', $options = array()) {
-		$pluginRoot = dirname(dirname(__DIR__));
+		$pluginRoot = dirname(dirname(DIRNAME(__FILE__)));
 		$pluginName = end(explode(DS, $pluginRoot));
 
 		$url = '/' . Inflector::underscore($pluginName) . '/js/' . $url;
