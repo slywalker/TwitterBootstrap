@@ -6,259 +6,300 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html');
 
+	public function textarea($fieldName, $options, $before = false) {
+		if ($before) {
+			if ('textarea' === $options['type']) {
+				$options += array('cols' => false, 'rows' => '3');
+			}
+			return $options;
+		} else {
+			return parent::textarea($fieldName, $options);
+		}
+	}
+
+	public function uneditable($fieldName, $options, $before = false) {
+		if ($before) {
+			$class =  explode(' ', $this->_extractOption('class', $options));
+			if (in_array('uneditable-input', $class)) {
+				$options['type'] = 'uneditable';
+			}
+			return $options;
+		} else {
+			return $this->Html->tag('span', $options['value'], $options['class']);
+		}
+	}
+
+	public function addon($fieldName, $options, $before = false) {
+		if ($before) {
+			$prepend = $this->_extractOption('prepend', $options);
+			$append = $this->_extractOption('append', $options);
+			if ($prepend || $append) {
+				$options['_type'] = $options['type'];
+				$options['type'] = 'addon';
+			}
+			return $options;
+		} else {
+			$type = $options['_type'];
+			unset($options['_type']);
+
+			$default = array('wrap' => 'span', 'class' => 'add-on');
+			$divOptions = array();
+			foreach (array('prepend', 'append') as $addon) {
+				$option = (array) $this->_extractOption($addon, $options);
+				$$addon = null;
+				if ($option) {
+					unset($options[$addon]);
+
+					array_push($option, array());
+					list($text, $addonOptions) = $option;
+					$addonOptions += $default;
+
+					$wrap = $addonOptions['wrap'];
+					unset($addonOptions['wrap']);
+
+					$$addon = $this->Html->tag($wrap, $text, $addonOptions);
+					$divOptions = $this->addClass($divOptions, 'input-' . $addon);
+				}
+			}
+			$out = $prepend . $this->{$type}($fieldName, $options) . $append;
+			return $this->Html->tag('div', $out, $divOptions);
+		}
+	}
+
+	public function checkbox($fieldName, $options, $before = false) {
+		if ($before) {
+			if ('checkbox' === $options['type']) {
+				$options['_div'] = $this->_extractOption('div', $options);
+				$options['_label'] = $this->_extractOption('label', $options);
+				$options['_after'] = $this->_extractOption('after', $options);
+				if (false === $options['div']) {
+					$options['label'] = false;
+				} else {
+					$options['after'] = null;
+				}
+			}
+			return $options;
+		} else {
+			$label = $options['_label'];
+			$after = $options['_after'];
+
+			if ($options['_div']) {
+				$label['text'] = $after;
+				$label['class'] = null;
+			}
+
+			unset($options['_after']);
+			unset($options['_label']);
+			unset($options['_div']);
+
+			$label = $this->addClass($label, 'checkbox');
+			$out = parent::checkbox($fieldName, $options) . $label['text'];
+			return $this->label($fieldName, $out, array('class' => $label['class']));
+		}
+	}
+
+	public function radio($fieldName, $radioOptions, $options) {
+		$options['legend'] = false;
+		$options['separator'] = "\n";
+		$out = parent::radio($fieldName, $radioOptions, $options);
+		$out = $this->_restructureLabel($out, array('class' => 'radio'));
+		return $out;
+	}
+
+	public function select($fieldName, $options = array(), $attributes = array()) {
+		$multiple = $this->_extractOption('multiple', $attributes);
+		$checkbox = explode(' ', $multiple);
+		$attributes['multiple'] = $checkbox[0];
+		$out = parent::select($fieldName, $options, $attributes);
+		if ('checkbox' === $checkbox[0]) {
+			$out = $this->_restructureLabel($out, array('class' => $multiple));
+		}
+		return $out;
+	}
+
+	protected function _restructureLabel($out, $options = array()) {
+		$out = explode("\n", $out);
+		foreach ($out as $key => &$_out) {
+			$input = strip_tags($_out, '<input>');
+			if ($input) {
+				$_out = $this->Html->tag('label', $input, $options);
+			}
+		}
+		return implode("\n", $out);
+	}
+
 	public function create($model = null, $options = array()) {
-		$default = array(
-			'class' => 'form-horizontal',
-		);
-		$options = Set::merge($default, $options);
-		return parent::create($model, $options);
-	}
+		$class = explode(' ', $this->_extractOption('class', $options));
+		$inputDefaults = $this->_extractOption('inputDefaults', $options, array());
 
-	public function input($name, $options = array()) {
-		$default = array(
-			'type' => null,
-			'label' => null,
-			'before' => null, // to convert .input-prepend
-			'after' => null, // to convert .help-block
-			'div' => array(),
-			'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
-		);
-		$default = Set::merge($default, $this->_inputDefaults);
-		$options = Set::merge($default, $options);
-
-		if ($options['after']) {
-			$options['after'] = $this->_after($options['after']);
-		}
-		if ($options['before']) {
-			$options = $this->_prepend($options);
-		}
-
-		if ($options['type'] === 'checkbox') {
-			if (!isset($options['opt-label'])) {
-				$options['opt-label'] = $options['label'];
-				$options['label'] = FALSE;
-			}
-			if (isset($options['group-label'])) {
-				$options['label'] = $options['group-label'];
-			}
-			$options['format'] = array('before', 'input', 'between', 'label', 'error', 'after');
-		}
-
-		if (!empty($options['label'])) {
-			if (!is_array($options['label'])) {
-				$options['label'] = array('text' => $options['label']);
-			}
-
-			if (empty($options['label']['class'])) {
-				$options['label']['class'] = 'control-label';
-			}
-		}
-
-		$_ = $this->_input($name, $options, $hidden);
-
-		return $hidden . $this->_clearfix($name, $_, array(
-			'label' => $options['label'],
-			'div' => $options['div'],
-			'type' => $options['type'],
-		));
-	}
-
-	public function inlineInputs($name, $inputs, $options = array()) {
-		$default = array(
-			'label' => null,
-			'after' => null, // to convert .help-block
-			'div' => array(),
-		);
-		$default = Set::merge($default, $this->_inputDefaults);
-		$options = Set::merge($default, $options);
-
-		$out = array();
-		foreach ($inputs as $_name => $_options) {
-			if (is_array($_options)) {
-				$_options['label'] = false;
-				$_options['error'] = false;
-				$out[] = $this->_input($_name, $_options);
-			} else {
-				$out[] = $_options;
-			}
-		}
-		if (parent::error($name)) {
-			$out[] = $this->Html('span', parent::error($name), array(
-				'class' => 'help-inline',
+		if (in_array('form-search', $class) || in_array('form-inline', $class)) {
+			$options['inputDefaults'] = Set::merge($inputDefaults, array(
+				'div' => false,
+				'label' => false,
 			));
 		}
-		if ($options['after']) {
-			$out[] = $this->_after($options['after']);
+		elseif (in_array('form-horizontal', $class)) {
+			$options['inputDefaults'] = Set::merge($inputDefaults, array(
+				'div' => 'control-group',
+			));
+		}
+		else {
+			$options['inputDefaults'] = Set::merge($inputDefaults, array(
+				'div' => false,
+			));
 		}
 
-		return $this->_clearfix($name, implode("\n", $out), $options);
+		return parent::create($model, $options);
 	}
 
 	public function submit($caption = null, $options = array()) {
 		$default = array(
 			'type' => 'submit',
-			'div' => array('class' => 'form-actions'),
-			'class' => 'btn btn-primary',
-			'data-loading-text' => __d('TwitterBootstrap', 'Submiting...'),
+			'class' => 'btn',
+			'div' => 'form-actions',
 		);
-		$options += $default;
-		$divOptions = $options['div'];
-		unset($options['div']);
+		$options = Set::merge($default, $options);
 
-		$out = $this->Html->tag('button', $caption, $options);
-		if ($divOptions === false) {
-			return $out;
-		}
-		$out = $this->Html->tag('div', $out, $divOptions);
+		$out = $this->button($caption, $options);
 		return $out;
 	}
 
-	protected function _input($name, $options, &$hidden = '') {
-		$default = array(
-			'type' => null,
-			'error' => null,
+	public function input($fieldName, $options = array()) {
+		$options = array_merge(
+			array('format' => array('before', 'label', 'between', 'input', 'error', 'after')),
+			$this->_inputDefaults,
+			$options
 		);
-		$options = Set::merge($default, $options);
+		$options = $this->_initInputField($fieldName, $options);
 
-		$options['label'] = $options['div'] = $options['legend'] = false;
-		if ($options['error'] !== false) {
-			$options['error'] = array(
-				'attributes' => array(
-					'wrap' => 'span',
-					'class' => 'help-inline error-message',
-				),
-			);
+		$options['label'] = $this->_extractOption('label', $options);
+		if ($options['label'] && !is_array($options['label'])) {
+			$options['label'] = array('text' => $options['label'], 'class' => null);
+		}
+		$options['div'] = $this->_extractOption('div', $options);
+		if ($options['label'] && false !== $options['div']) {
+			$options['label'] = $this->addClass($options['label'], 'control-label');
 		}
 
-		if ($options['type'] === 'checkbox') {
-			$options['label'] = empty($options['opt-label']) ? FALSE : $options['opt-label'];
-			$input = $this->_checkbox($name, $options);
-		} else {
-			$input = parent::input($name, $options);
-			if (!empty($options['multiple']) && $options['multiple'] === 'checkbox') {
-				$input	= $options['after'] . $this->_multipleCheckbox($input, $options, $hidden);
-			}
-			elseif ($options['type'] === 'radio') {
-				$input = $this->_radio($input, $options, $hidden);
-			}
+		$options = $this->uneditable($fieldName, $options, true);
+		$options = $this->addon($fieldName, $options, true);
+		$options = $this->textarea($fieldName, $options, true);
+		$options = $this->checkbox($fieldName, $options, true);
+		$options = $this->_controlGroupStates($fieldName, $options);
+		$options = $this->_buildAfter($options);
+
+		$disabled = $this->_extractOption('disabled', $options, false);
+		if ($disabled) {
+			$options = $this->addClass($options, 'disabled');
 		}
-		return $input;
+
+		$div = $this->_extractOption('div', $options);
+		$options['div'] = false;
+		$label = $this->_extractOption('label', $options);
+		$options['label'] = false;
+
+		$hidden = $this->_hidden($fieldName, $options);
+		if ($hidden) {
+			$options['hiddenField'] = false;
+		}
+
+		$out = parent::input($fieldName, $options);
+
+		if ($div) {
+			$out = $this->Html->div('controls', $out);
+		}
+		$out = $hidden . $out;
+
+		if ($label) {
+			$out = $this->label($fieldName, $label['text'], array('class' => $label['class'])) . $out;
+		}
+		if ($div) {
+			$out = $this->Html->div($div, $out);
+		}
+		return $out;
 	}
 
-	protected function _clearfix($name, $input, $options) {
-		$default = array(
-			'label' => null,
-			'type' => null,
-			'div' => array(
-				'class' => 'controls',
-			),
-		);
-		$options = Set::merge($default, $options);
-
-		$out = array();
-		if ($options['label'] !== false) {
-			$text = $options['label']['text'];
-			if ($options['type'] === 'checkbox') {
-				unset($options['label']['text']);
-				$options['label']['for'] = '';
-			}
-			$out[] = parent::label(FALSE, $text, $options['label']);
+	protected function _buildAfter($options) {
+		$outInline = array();
+		$inlines = (array) $this->_extractOption('helpInline', $options, array());
+		if ($inlines) {
+			unset($options['helpInline']);
 		}
-		if ($options['div'] === false) {
-			$out[] = $input;
-			return implode("\n", $out);
+		foreach ($inlines as $inline) {
+			$outInline[] = $this->help($inline, array('type' => 'inline'));
 		}
-		$out[] = $this->Html->div($options['div']['class'], $input, $options['div']);
+		$outInline = implode(' ', $outInline);
 
-		$clearfix = 'control-group';
-		if (parent::error($name)) {
-			$clearfix .= ' error';
+		$outBlock = array();
+		$blocks = (array) $this->_extractOption('helpBlock', $options, array());
+		if ($blocks) {
+			unset($options['helpBlock']);
 		}
-		return $this->Html->div($clearfix, implode("\n", $out));
-	}
-
-	protected function _after($after) {
-		if (!is_array($after)) {
-			$after = array('text' => $after);
+		foreach ($blocks as $block) {
+			$outBlock[] = $this->help($block, array('type' => 'block'));
 		}
-		$afterDefault = array(
-			'text' => '',
-			'wrap' => 'p',
-			'class' => 'help-block',
-		);
-		$after += $afterDefault;
-		return $this->Html->tag($after['wrap'], $after['text'], array(
-			'class' => $after['class'],
-		));
-	}
+		$outBlock = implode("\n", $outBlock);
 
-	protected function _prepend($options) {
-		$before = $options['before'];
-		$before = $this->Html->tag('span', $before, array('class' => 'add-on'));
-		$options['before'] = '<div class="input-prepend">' . $before;
-		$options['after'] .= '</div>';
+		$options['after'] = $outInline . "\n" . $outBlock . "\n" . $this->_extractOption('after', $options);
 		return $options;
 	}
 
-	protected function _checkbox($name, $options) {
-		$input = parent::input($name, $options);
-		$input = $this->Html->tag('label', $input, array('class'=>'checkbox'));
-		return $input;
+	protected function _controlGroupStates($fieldName, $options) {
+		if (false !== $options['div']) {
+			$inlines = (array) $this->_extractOption('helpInline', $options, array());
+			foreach ($options as $key => $value) {
+				if (in_array($key, array('warning', 'success'))) {
+					unset($options[$key]);
+					array_unshift($inlines, $value);
+					$options = $this->addClass($options, $key, 'div');
+				}
+			}
+			$options['helpInline'] = $inlines;
+		}
+		if ($this->error($fieldName)) {
+			$options['error'] = array_merge($options['error'], array(
+				'attributes' => array(
+					'wrap' => 'span',
+					'class' => 'help-inline error',
+				),
+			));
+			$options = $this->addClass($options, 'error', 'div');
+		}
+		return $options;
 	}
 
-	protected function _radio($out, $options, &$hidden) {
-		if (!preg_match_all('/(<input type="radio"[^>]+>)(((?!<input).)*)/m', $out, $matches)) {
-			return $out;
+	protected function _hidden($fieldName, $options) {
+		if (!in_array($options['type'], array('checkbox', 'radio', 'select'))) {
+			return null;
+		}
+		$multiple = $this->_extractOption('multiple', $options);
+		$checkbox = explode(' ', $multiple);
+		if ('select' === $options['type'] && 'checkbox' !== $checkbox[0]) {
+			return null;
 		}
 
-		$hidden = '';
-		if (preg_match('/<input type="hidden"[^>]+>/m', $out, $match)) {
-			$hidden = $match[0];
+		$out = null;
+		$hiddenField = $this->_extractOption('hiddenField', $options, true);
+		if ($hiddenField) {
+			if (!isset($options['value']) || $options['value'] === '') {
+				$out = $this->hidden($fieldName, array(
+					'id' => $options['id'] . '_', 'value' => '', 'name' => $options['name']
+				));
+			}
 		}
-
-		$error = '';
-		if (preg_match('/<span class="' . $options['error']['attributes']['class'] . '"[^>]*>[^<]*<\/span>/m', $out, $match)) {
-			$error = '<p>' . $match[0] . '</p>';
-		}
-
-		$lines = array();
-		foreach ($matches[0] as $key => $value) {
-			$line = $matches[1][$key] . $matches[2][$key];
-			$lines[] = $this->Html->tag('label', $line, array('class'=>'radio'));
-		}
-
-		$out  = '';
-		$out .= implode("\n", $lines);
-		$out .= $error;
 		return $out;
 	}
 
-	protected function _multipleCheckbox($out, $options, &$hidden) {
-		if (!preg_match_all('/<div[^>]+>(<input type="checkbox"[^>]+>)(<label[^>]+)>([^<]*)(<\/label>)<\/div>/m', $out, $matches)) {
-			return $out;
-		}
-
-		if (!preg_match('/<input type="hidden"[^>]+>/m', $out, $match)) {
-			return $out;
-		}
-		$hidden = $match[0];
-
-		$error = '';
-		if (preg_match('/<span class="' . $options['error']['attributes']['class'] . '"[^>]*>[^<]*<\/span>/m', $out, $match)) {
-			$error = '<p>' . $match[0] . '</p>';
-		}
-
-		$lines = array();
-		foreach ($matches[0] as $key => $value) {
-			$line = $matches[2][$key]  . ' class="checkbox">' . $matches[1][$key];
-			$line .= $matches[3][$key] . $matches[4][$key];
-			$lines[] = $line;
-		}
-
-		$out = '';
-		$out .= implode("\n", $lines);
-		$out .= $error;
-		return $out;
+	public function help($text, $options) {
+		$classMap = array(
+			'inline' => array('wrap' => 'span', 'class' => 'help-inline'),
+			'block' => array('wrap' => 'p', 'class' => 'help-block'),
+		);
+		$options += array('type' => 'inline');
+		$options += $this->_extractOption($options['type'], $classMap, array());
+		unset($options['type']);
+		$wrap = $options['wrap'];
+		unset($options['wrap']);
+		return $this->Html->tag($wrap , $text, $options);
 	}
-
 }
