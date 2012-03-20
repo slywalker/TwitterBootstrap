@@ -19,6 +19,8 @@
 			<p>With v2.0, we have lighter and smarter defaults for form styles. No extra markup, just form controls.</p>
 		</div>
 		<div class="span9">
+
+			<h3>Original</h3>
 			<form class="well">
 				<label>Label name</label>
 				<input type="text" class="span3" placeholder="Type something…"> <span class="help-inline">Associated help text!</span>
@@ -29,8 +31,9 @@
 				<button type="submit" class="btn">Submit</button>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'well')); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+			<h3>BootstrapFormHelper</h3>
+			<?php echo $this->Form->create(null, array('class' => 'well')); ?>
+				<?php echo $this->Form->input(uniqid(), array(
 					'label' => 'Label name',
 					'type' => 'text',
 					'class' => 'span3',
@@ -41,15 +44,15 @@
 					// 'between' => 'This is cheack for between.',
 					// 'after' => 'This is cheack for after.',
 				)); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+				<?php echo $this->Form->input(uniqid(), array(
 					'label' => 'Check me out',
 					'type' => 'checkbox',
 					// 'before' => 'This is cheack for before.',
 					// 'between' => 'This is cheack for between.',
 					// 'after' => 'This is cheack for after.',
 				)); ?>
-				<?php echo $this->BootstrapForm2->submit('Submit', array('div' => false)); ?>
-			<?php echo $this->BootstrapForm2->end(); ?>
+				<?php echo $this->Form->submit('Submit', array('div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;label&gt;</span><span class="pln">Label name</span><span class="tag">&lt;/label&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"span3"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Type something…"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"help-inline"</span><span class="tag">&gt;</span><span class="pln">Associated help text!</span><span class="tag">&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span><span class="pln"> Check me out</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/label&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Submit</span><span class="tag">&lt;/button&gt;</span></li><li class="L8"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
 		</div>
@@ -60,18 +63,21 @@
 			<p>Reflecting default WebKit styles, just add <code>.form-search</code> for extra rounded search fields.</p>
 		</div>
 		<div class="span9">
+
+			<h3>Original</h3>
 			<form class="well form-search">
 				<input type="text" class="input-medium search-query">
 				<button type="submit" class="btn">Search</button>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'well form-search')); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+			<h3>BootstrapFormHelper</h3>
+			<?php echo $this->Form->create(null, array('class' => 'well form-search')); ?>
+				<?php echo $this->Form->input(uniqid(), array(
 					'type' => 'text',
 					'class' => 'input-medium search-query',
 				)); ?>
-				<?php echo $this->BootstrapForm2->submit('Search', array('div' => false)); ?>
-			<?php echo $this->BootstrapForm2->end(); ?>
+				<?php echo $this->Form->submit('Search', array('div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well form-search"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-medium search-query"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Search</span><span class="tag">&lt;/button&gt;</span></li><li class="L3"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
 		</div>
@@ -82,6 +88,8 @@
 			<p>Inputs are block level to start. For <code>.form-inline</code> and <code>.form-horizontal</code>, we use inline-block.</p>
 		</div>
 		<div class="span9">
+
+			<h3>Original</h3>
 			<form class="well form-inline">
 				<input type="text" class="input-small" placeholder="Email">
 				<input type="password" class="input-small" placeholder="Password">
@@ -91,23 +99,24 @@
 				<button type="submit" class="btn">Sign in</button>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'well form-inline')); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+			<h3>BootstrapFormHelper</h3>
+			<?php echo $this->Form->create(null, array('class' => 'well form-inline')); ?>
+				<?php echo $this->Form->input(uniqid(), array(
 					'type' => 'text',
 					'class' => 'input-small',
 					'placeholder' => 'Email',
 				)); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+				<?php echo $this->Form->input(uniqid(), array(
 					'type' => 'password',
 					'class' => 'input-small',
 					'placeholder' => 'Password',
 				)); ?>
-				<?php echo $this->BootstrapForm2->input(uniqid(), array(
+				<?php echo $this->Form->input(uniqid(), array(
 					'label' => 'Remember me',
 					'type' => 'checkbox',
 				)); ?>
-				<?php echo $this->BootstrapForm2->submit('Sign in', array('div' => false)); ?>
-			<?php echo $this->BootstrapForm2->end(); ?>
+				<?php echo $this->Form->submit('Sign in', array('div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well form-inline"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-small"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Email"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-small"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Password"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span><span class="pln"> Remember me</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;/label&gt;</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Sign in</span><span class="tag">&lt;/button&gt;</span></li><li class="L7"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
 		</div>
@@ -120,7 +129,7 @@
 		<div class="span8">
 			<form class="form-horizontal">
 				<fieldset>
-					<legend>Controls Bootstrap supports</legend>
+					<legend>Controls Bootstrap supports <small>Original</small></legend>
 					<div class="control-group">
 						<label class="control-label" for="input01">Text input</label>
 						<div class="controls">
@@ -180,28 +189,28 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
 				<fieldset>
-					<legend>Controls Bootstrap supports</legend>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<legend>Controls Bootstrap supports <small>BootstrapFormHelper</small></legend>
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Text input',
 						'type' => 'text',
 						'class' => 'input-xlarge',
 						'helpBlock' => 'In addition to freeform text, any HTML5 text-based input appears like so.',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Checkbox',
 						'type' => 'checkbox',
 						'after' => 'Option one is this and that—be sure to include why it\'s great',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Select list',
 						'type' => 'select',
 						'options' => array(
 							'something', '1', '2', '3', '4', '5',
 						),
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Multicon-select',
 						'type' => 'select',
 						'multiple' => true,
@@ -209,24 +218,24 @@
 							'1', '2', '3', '4', '5',
 						),
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'File input',
 						'type' => 'file',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Textarea',
 						'type' => 'textarea',
 						'class' => 'input-xlarge',
 					)); ?>
 					<div class="form-actions">
-						<?php echo $this->BootstrapForm2->submit('Save changes', array(
+						<?php echo $this->Form->submit('Save changes', array(
 							'div' => false,
 							'class' => 'btn btn-primary',
 						)); ?>
 						<button class="btn">Cancel</button>
 					</div>
 				</fieldset>
-			<?php echo $this->BootstrapForm2->end(); ?>
+			<?php echo $this->Form->end(); ?>
 
 			<h3>Example markup</h3>
 			<p>Given the above example form layout, here's the markup associated with the first input and control group. The <code>.control-group</code>, <code>.control-label</code>, and <code>.controls</code> classes are all required for styling.</p>
@@ -256,7 +265,7 @@
 		<div class="span8">
 			<form class="form-horizontal">
 				<fieldset>
-					<legend>Form control states</legend>
+					<legend>Form control states <small>Original</small></legend>
 					<div class="control-group">
 						<label class="control-label" for="focusedInput">Focused input</label>
 						<div class="controls">
@@ -325,66 +334,66 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
 				<fieldset>
-					<legend>Form control states</legend>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<legend>Form control states <small>BootstrapFormHelper</small></legend>
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Focused input',
 						'type' => 'text',
 						'class' => 'input-xlarge focused',
 						'value' => 'This is focused…',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Uneditable input',
 						'type' => 'text',
 						'class' => 'input-xlarge uneditable-input',
 						'value' => 'Some value here',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Disabled input',
 						'type' => 'text',
 						'class' => 'input-xlarge',
 						'placeholder' => 'Disabled input here…',
 						'disabled' => true,
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Disabled checkbox',
 						'type' => 'checkbox',
 						'after' => 'This is a disabled checkbox',
 						'disabled' => true,
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Input with warning',
 						'type' => 'text',
 						'warning' => 'Something may have gone wrong',
 					)); ?>
 					<?php $this->validationErrors = array('User' => array('name' => array('empty'))); ?>
-					<?php echo $this->BootstrapForm2->input('User.name', array(
+					<?php echo $this->Form->input('User.name', array(
 						'label' => 'Input with error',
 						'type' => 'text',
 						'error' => array('empty' =>'Please correct the error'),
-						'after' => 'This is cheack for after.',
+						// 'after' => 'This is cheack for after.',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Input with success',
 						'type' => 'text',
 						'success' => 'Woohoo!',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Select with success',
 						'type' => 'select',
 						'success' => 'Woohoo!',
 						'options' => array('1', '2', '3', '4', '5'),
 					)); ?>
 					<div class="form-actions">
-						<?php echo $this->BootstrapForm2->submit('Save changes', array(
+						<?php echo $this->Form->submit('Save changes', array(
 							'div' => false,
 							'class' => 'btn btn-primary',
 						)); ?>
 						<button class="btn">Cancel</button>
 					</div>
 				</fieldset>
-			<?php echo $this->BootstrapForm2->end(); ?>
+			<?php echo $this->Form->end(); ?>
 
 		</div>
 		<div class="span4">
@@ -403,7 +412,7 @@
 		<div class="span8">
 			<form class="form-horizontal">
 				<fieldset>
-					<legend>Extending form controls</legend>
+					<legend>Extending form controls <small>Original</small></legend>
 					<div class="control-group">
 						<label class="control-label">Form grid sizes</label>
 						<div class="controls docs-input-sizes">
@@ -529,43 +538,43 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->BootstrapForm2->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
 				<fieldset>
-					<legend>Extending form controls</legend>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<legend>Extending form controls <small>BootstrapFormHelper</small></legend>
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Prepended text',
 						'type' => 'text',
 						'class' => 'span2',
 						'prepend' => '@',
 						'helpBlock' => 'Here\'s some help text',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Appended text',
 						'type' => 'text',
 						'class' => 'span2',
 						'append' => '.00',
 						'helpInline' => 'Here\'s more help text',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Append and prepend',
 						'type' => 'text',
 						'class' => 'span2',
 						'prepend' => '$',
 						'append' => '.00',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Append with button',
 						'type' => 'text',
 						'class' => 'span2',
 						'append' => array('Go!', array('wrap' => 'button', 'class' => 'btn')),
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Inline checkboxes',
 						'type' => 'select',
 						'multiple' => 'checkbox inline',
 						'options' => array('1', '2', '3'),
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Checkboxes',
 						'type' => 'select',
 						'multiple' => 'checkbox',
@@ -576,7 +585,7 @@
 						),
 						'helpBlock' => '<strong>Note:</strong> Labels surround all the options for much larger click areas and a more usable form.',
 					)); ?>
-					<?php echo $this->BootstrapForm2->input(uniqid(), array(
+					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Radio buttons',
 						'type' => 'radio',
 						'options' => array(
@@ -585,14 +594,14 @@
 						),
 					)); ?>
 					<div class="form-actions">
-						<?php echo $this->BootstrapForm2->submit('Save changes', array(
+						<?php echo $this->Form->submit('Save changes', array(
 							'div' => false,
 							'class' => 'btn btn-primary',
 						)); ?>
 						<button class="btn">Cancel</button>
 					</div>
 				</fieldset>
-			<?php echo $this->BootstrapForm2->end(); ?>
+			<?php echo $this->Form->end(); ?>
 
 		</div>
 		<div class="span4">
@@ -612,88 +621,6 @@
 	</div><!-- /row -->
 </section>
 
-<section id="forms">
-	<h2>Forms</h2>
-	<?php echo $this->BootstrapForm->create(false, array(
-		'url' => '#',
-	)); ?>
-
-		<fieldset>
-			<legend>Controls Bootstrap supports</legend>
-
-			<?php echo $this->BootstrapForm->input('sample1', array(
-				'label' => 'Text input',
-				'class' => 'input-xlarge',
-				'after' => 'In addition to freeform text, any HTML5 text-based input appears like so.',
-			)); ?>
-
-			<?php echo $this->BootstrapForm2->input('sample11', array(
-				'type' => 'checkbox',
-				'label' => 'Check me out',
-			)); ?>
-
-			<?php echo $this->BootstrapForm->input('sample2', array(
-				'type' => 'checkbox',
-				'label' => 'Checkbox',
-				'opt-label' => 'Option one is this and that—be sure to include why it’s great',
-			)); ?>
-
-			<?php echo $this->BootstrapForm->input('sample3', array(
-				'label' => 'Select list',
-				'options' => array(
-					0 => 'something',
-					1 => '1',
-					2 => '2',
-					3 => '3',
-					4 => '4',
-					5 => '5',
-				),
-			)); ?>
-
-			<?php echo $this->BootstrapForm->input('sample4', array(
-				'label' => 'Multicon-select',
-				'multiple' => true,
-				'options' => array(
-					1 => '1',
-					2 => '2',
-					3 => '3',
-					4 => '4',
-					5 => '5',
-				),
-			)); ?>
-
-			<?php echo $this->BootstrapForm->input('sample5', array(
-				'type' => 'file',
-				'label' => 'File input',
-			)); ?>
-
-			<?php echo $this->BootstrapForm->input('sample6', array(
-				'type' => 'textarea',
-				'label' => 'Textarea',
-				'class' => 'input-xlarge',
-				'rows' => '3',
-				'cols' => false,
-			)); ?>
-
-			<?php echo $this->BootstrapForm->inlineInputs('Inline inputs', array(
-				'first_name' => array(
-					'class' => 'input-small',
-					'placeholder' => 'First Name',
-				),
-				'&nbsp;',
-				'last_name' => array(
-					'class' => 'input-small',
-					'placeholder' => 'Last Name',
-				),
-			)); ?>
-
-			<?php echo $this->BootstrapForm->submit('Save changes'); ?>
-
-		</fieldset>
-
-	<?php echo $this->BootstrapForm->end(); ?>
-</section>
-
 <section id="paginate">
 	<h2>Paginate</h2>
 	<?php $this->request->params['paging']['Example'] = array(
@@ -708,13 +635,13 @@
 		'options' => array(),
 		'paramType' => 'named',
 	); // test params ?>
-	<?php echo $this->BootstrapPaginator->pagination(array('model' => 'Example')); ?>
-	<?php echo $this->BootstrapPaginator->pager(array('model' => 'Example')); ?>
+	<?php echo $this->Paginator->pagination(array('model' => 'Example')); ?>
+	<?php echo $this->Paginator->pager(array('model' => 'Example')); ?>
 </section>
 
 <section id="breadcrumb">
 	<h2>Breadcrumb</h2>
-	<?php echo $this->BootstrapHtml->breadcrumb(array(
+	<?php echo $this->Html->breadcrumb(array(
 		$this->Html->link('one', '/one'),
 		$this->Html->link('two', '/two'),
 		'three',
