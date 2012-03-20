@@ -317,7 +317,9 @@ class BootstrapFormHelper extends FormHelper {
 					$options = $this->addClass($options, $key, 'div');
 				}
 			}
-			$options['helpInline'] = $inlines;
+			if ($inlines) {
+				$options['helpInline'] = $inlines;
+			}
 		}
 		if ($this->error($fieldName)) {
 			$error = $this->_extractOption('error', $options, array());
