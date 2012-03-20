@@ -10,9 +10,9 @@ class TwitterBootstrapController extends AppController {
 	public $components = array('Session');
 
 	public $helpers = array(
-		'TwitterBootstrap.BootstrapHtml',
-		'TwitterBootstrap.BootstrapForm',
-		'TwitterBootstrap.BootstrapPaginator',
+		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
+		'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
+		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 	);
 
 	public function index() {

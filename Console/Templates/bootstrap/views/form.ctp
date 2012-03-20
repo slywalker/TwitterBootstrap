@@ -1,6 +1,6 @@
 <div class="row-fluid">
 	<div class="span9">
-		<?php echo "<?php echo \$this->BootstrapForm->create('{$modelClass}');?>\n";?>
+		<?php echo "<?php echo \$this->BootstrapForm->create('{$modelClass}', array('class' => 'form-horizontal'));?>\n";?>
 			<fieldset>
 				<legend><?php echo "<?php echo __('" . Inflector::humanize($action) . " %s', __('" . $singularHumanName . "')); ?>"; ?></legend>
 <?php
@@ -14,7 +14,7 @@
 							$id = "\t\t\t\techo \$this->BootstrapForm->hidden('{$field}');\n";
 						} else {
 							if($this->templateVars['schema'][$field]['null'] == false){
-								$required = ", array(\n\t\t\t\t\t'required' => 'required',\n\t\t\t\t\t'between' => '<span class=\"label label-important\">' . __('Require') . '</span>&nbsp;')\n\t\t\t\t";
+								$required = ", array(\n\t\t\t\t\t'required' => 'required',\n\t\t\t\t\t'helpInline' => '<span class=\"label label-important\">' . __('Require') . '</span>&nbsp;')\n\t\t\t\t";
 							} else {
 								$required = null;
 							}

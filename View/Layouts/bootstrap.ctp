@@ -14,7 +14,7 @@
 	<![endif]-->
 
 	<!-- Le styles -->
-	<?php echo $this->BootstrapHtml->css(); ?>
+	<?php echo $this->Html->css(); ?>
 	<style>
 		body {
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
