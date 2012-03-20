@@ -159,8 +159,13 @@ class BootstrapFormHelper extends FormHelper {
 			'div' => 'form-actions',
 		);
 		$options = Set::merge($default, $options);
+		$div = $options['div'];
+		unset($options['div']);
 
 		$out = $this->button($caption, $options);
+		if ($div) {
+			$out = $this->Html->div($div, $out);
+		}
 		return $out;
 	}
 
@@ -171,13 +176,14 @@ class BootstrapFormHelper extends FormHelper {
 			$options
 		);
 		$options = $this->_initInputField($fieldName, $options);
+		$options = $this->_setType($options);
 
 		$options['label'] = $this->_extractOption('label', $options);
-		if ($options['label'] && !is_array($options['label'])) {
+		if (false !== $options['label'] && !is_array($options['label'])) {
 			$options['label'] = array('text' => $options['label'], 'class' => null);
 		}
 		$options['div'] = $this->_extractOption('div', $options);
-		if ($options['label'] && false !== $options['div']) {
+		if (false !== $options['label'] && false !== $options['div']) {
 			$options['label'] = $this->addClass($options['label'], 'control-label');
 		}
 
@@ -210,13 +216,70 @@ class BootstrapFormHelper extends FormHelper {
 		}
 		$out = $hidden . $out;
 
-		if ($label) {
+		if (false !== $label) {
 			$out = $this->label($fieldName, $label['text'], array('class' => $label['class'])) . $out;
 		}
 		if ($div) {
 			$out = $this->Html->div($div, $out);
 		}
 		return $out;
+	}
+
+	protected function _setType($options) {
+		$modelKey = $this->model();
+		$fieldKey = $this->field();
+
+		if (!isset($options['type'])) {
+			$magicType = true;
+			$options['type'] = 'text';
+			if (isset($options['options'])) {
+				$options['type'] = 'select';
+			} elseif (in_array($fieldKey, array('psword', 'passwd', 'password'))) {
+				$options['type'] = 'password';
+			} elseif (isset($options['checked'])) {
+				$options['type'] = 'checkbox';
+			} elseif ($fieldDef = $this->_introspectModel($modelKey, 'fields', $fieldKey)) {
+				$type = $fieldDef['type'];
+				$primaryKey = $this->fieldset[$modelKey]['key'];
+			}
+
+			if (isset($type)) {
+				$map = array(
+					'string' => 'text', 'datetime' => 'datetime',
+					'boolean' => 'checkbox', 'timestamp' => 'datetime',
+					'text' => 'textarea', 'time' => 'time',
+					'date' => 'date', 'float' => 'number',
+					'integer' => 'number'
+				);
+
+				if (isset($this->map[$type])) {
+					$options['type'] = $this->map[$type];
+				} elseif (isset($map[$type])) {
+					$options['type'] = $map[$type];
+				}
+				if ($fieldKey == $primaryKey) {
+					$options['type'] = 'hidden';
+				}
+				if (
+					$options['type'] === 'number' &&
+					$type === 'float' &&
+					!isset($options['step'])
+				) {
+					$options['step'] = 'any';
+				}
+			}
+			if (preg_match('/_id$/', $fieldKey) && $options['type'] !== 'hidden') {
+				$options['type'] = 'select';
+			}
+
+			if ($modelKey === $fieldKey) {
+				$options['type'] = 'select';
+				if (!isset($options['multiple'])) {
+					$options['multiple'] = 'multiple';
+				}
+			}
+		}
+		return $options;
 	}
 
 	protected function _buildAfter($options) {
@@ -257,7 +320,8 @@ class BootstrapFormHelper extends FormHelper {
 			$options['helpInline'] = $inlines;
 		}
 		if ($this->error($fieldName)) {
-			$options['error'] = array_merge($options['error'], array(
+			$error = $this->_extractOption('error', $options, array());
+			$options['error'] = array_merge($error, array(
 				'attributes' => array(
 					'wrap' => 'span',
 					'class' => 'help-inline error-message',
