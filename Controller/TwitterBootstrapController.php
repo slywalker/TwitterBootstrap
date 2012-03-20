@@ -12,6 +12,7 @@ class TwitterBootstrapController extends AppController {
 	public $helpers = array(
 		'TwitterBootstrap.BootstrapHtml',
 		'TwitterBootstrap.BootstrapForm',
+		'TwitterBootstrap.BootstrapForm2',
 		'TwitterBootstrap.BootstrapPaginator',
 	);
 
