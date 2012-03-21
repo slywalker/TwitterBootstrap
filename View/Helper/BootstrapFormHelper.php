@@ -72,7 +72,7 @@ class BootstrapFormHelper extends FormHelper {
 				$options['_div'] = $this->_extractOption('div', $options);
 				$options['_label'] = $this->_extractOption('label', $options);
 				$options['_after'] = $this->_extractOption('after', $options);
-				if (false === $options['div']) {
+				if (false === $options['_div']) {
 					$options['label'] = false;
 				} else {
 					$options['after'] = null;
@@ -92,9 +92,14 @@ class BootstrapFormHelper extends FormHelper {
 			unset($options['_label']);
 			unset($options['_div']);
 
+			if (!is_array($label)) {
+				$label = array('text' => $label);
+			}
 			$label = $this->addClass($label, 'checkbox');
-			$out = parent::checkbox($fieldName, $options) . $label['text'];
-			return $this->label($fieldName, $out, array('class' => $label['class']));
+			$text = $label['text'];
+			unset($label['text']);
+			$out = parent::checkbox($fieldName, $options) . $text;
+			return $this->label($fieldName, $out, $label);
 		}
 	}
 
@@ -159,14 +164,9 @@ class BootstrapFormHelper extends FormHelper {
 			'div' => 'form-actions',
 		);
 		$options = Set::merge($default, $options);
-		$div = $options['div'];
-		unset($options['div']);
-
+		$div = $this->_extractOption('div', $options);
 		$out = $this->button($caption, $options);
-		if ($div) {
-			$out = $this->Html->div($div, $out);
-		}
-		return $out;
+		return (false === $div) ? $out : $this->Html->div($div, $out);
 	}
 
 	public function input($fieldName, $options = array()) {
@@ -179,31 +179,12 @@ class BootstrapFormHelper extends FormHelper {
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($options);
 
-		$options['label'] = $this->_extractOption('label', $options);
-		if (false !== $options['label'] && !is_array($options['label'])) {
-			$options['label'] = array('text' => $options['label'], 'class' => null);
-		}
-		$options['div'] = $this->_extractOption('div', $options);
-		if (false !== $options['label'] && false !== $options['div']) {
-			$options['label'] = $this->addClass($options['label'], 'control-label');
-		}
-
 		$options = $this->uneditable($fieldName, $options, true);
 		$options = $this->addon($fieldName, $options, true);
 		$options = $this->textarea($fieldName, $options, true);
 		$options = $this->checkbox($fieldName, $options, true);
 		$options = $this->_controlGroupStates($fieldName, $options);
 		$options = $this->_buildAfter($options);
-
-		$disabled = $this->_extractOption('disabled', $options, false);
-		if ($disabled) {
-			$options = $this->addClass($options, 'disabled');
-		}
-
-		$div = $this->_extractOption('div', $options);
-		$options['div'] = false;
-		$label = $this->_extractOption('label', $options);
-		$options['label'] = false;
 
 		$hidden = $this->_hidden($fieldName, $options);
 		if ($hidden) {
@@ -213,20 +194,42 @@ class BootstrapFormHelper extends FormHelper {
 		if (is_null($type)) {
 			unset($options['type']);
 		}
-		$out = parent::input($fieldName, $options);
 
-		if ($div) {
-			$out = $this->Html->div('controls', $out);
+		$disabled = $this->_extractOption('disabled', $options, false);
+		if ($disabled) {
+			$options = $this->addClass($options, 'disabled');
 		}
-		$out = $hidden . $out;
 
+		$div = $this->_extractOption('div', $options);
+		$options['div'] = false;
+
+		$before = $this->_extractOption('before', $options);
+		$options['before'] = null;
+
+		$label = $this->_extractOption('label', $options);
 		if (false !== $label) {
-			$out = $this->label($fieldName, $label['text'], array('class' => $label['class'])) . $out;
+			if (!is_array($label)) {
+				$label = array('text' => $label);
+			}
+			if (false !== $div) {
+				$class = $this->_extractOption('class', $label, 'control-label');
+				$label = $this->addClass($label, $class);
+			}
+			$text = $label['text'];
+			unset($label['text']);
+			$label = $this->label($fieldName, $text, $label);
 		}
-		if ($div) {
-			$out = $this->Html->div($div, $out);
-		}
-		return $out;
+		$options['label'] = false;
+
+		$between = $this->_extractOption('between', $options);
+		$options['between'] = null;
+
+		$input = parent::input($fieldName, $options);
+		$divControls = $this->_extractOption('divControls', $options, 'controls');
+		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
+
+		$out = $before . $label . $between . $input;
+		return (false === $div) ? $out : $this->Html->div($div, $out);
 	}
 
 	protected function _getType($options) {
@@ -301,7 +304,7 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	protected function _controlGroupStates($fieldName, $options) {
-		if (false !== $options['div']) {
+		if (false !== $this->_extractOption('div', $options)) {
 			$inlines = (array) $this->_extractOption('helpInline', $options, array());
 			foreach ($options as $key => $value) {
 				if (in_array($key, array('warning', 'success'))) {
