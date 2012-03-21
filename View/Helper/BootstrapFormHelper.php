@@ -92,9 +92,14 @@ class BootstrapFormHelper extends FormHelper {
 			unset($options['_label']);
 			unset($options['_div']);
 
+			if (!is_array($label)) {
+				$label = array('text' => $label);
+			}
 			$label = $this->addClass($label, 'checkbox');
-			$out = parent::checkbox($fieldName, $options) . $label['text'];
-			return $this->label($fieldName, $out, array('class' => $label['class']));
+			$text = $label['text'];
+			unset($label['text']);
+			$out = parent::checkbox($fieldName, $options) . $text;
+			return $this->label($fieldName, $out, $label);
 		}
 	}
 
@@ -171,10 +176,6 @@ class BootstrapFormHelper extends FormHelper {
 			$options
 		);
 
-		if (isset($options['label']) && !is_array($options['label'])) {
-			$options['label'] = array('text' => $options['label']);
-		}
-
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($options);
 
@@ -184,6 +185,11 @@ class BootstrapFormHelper extends FormHelper {
 		$options = $this->checkbox($fieldName, $options, true);
 		$options = $this->_controlGroupStates($fieldName, $options);
 		$options = $this->_buildAfter($options);
+
+		$hidden = $this->_hidden($fieldName, $options);
+		if ($hidden) {
+			$options['hiddenField'] = false;
+		}
 
 		if (is_null($type)) {
 			unset($options['type']);
@@ -202,6 +208,9 @@ class BootstrapFormHelper extends FormHelper {
 
 		$label = $this->_extractOption('label', $options);
 		if (false !== $label) {
+			if (!is_array($label)) {
+				$label = array('text' => $label);
+			}
 			if (false !== $div) {
 				$class = $this->_extractOption('class', $label, 'control-label');
 				$label = $this->addClass($label, $class);
@@ -215,10 +224,6 @@ class BootstrapFormHelper extends FormHelper {
 		$between = $this->_extractOption('between', $options);
 		$options['between'] = null;
 
-		$hidden = $this->_hidden($fieldName, $options);
-		if ($hidden) {
-			$options['hiddenField'] = false;
-		}
 		$input = parent::input($fieldName, $options);
 		$divControls = $this->_extractOption('divControls', $options, 'controls');
 		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
