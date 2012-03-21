@@ -175,7 +175,15 @@ class BootstrapFormHelper extends FormHelper {
 			$this->_inputDefaults,
 			$options
 		);
+
+		$secure = $this->_extractOption('label', $options, null);
+		$options['secure'] = false;
 		$options = $this->_initInputField($fieldName, $options);
+		if (is_null($secure)) {
+			unset($options['secure']);
+		} else {
+			$options['secure'] = $secure;
+		}
 		$options = $this->_setType($options);
 
 		$options['label'] = $this->_extractOption('label', $options);
@@ -335,23 +343,36 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	protected function _hidden($fieldName, $options) {
-		if (!in_array($options['type'], array('checkbox', 'radio', 'select'))) {
+		$type = $options['type'];
+		if (!in_array($type, array('checkbox', 'radio', 'select'))) {
 			return null;
 		}
 		$multiple = $this->_extractOption('multiple', $options);
-		$checkbox = explode(' ', $multiple);
-		if ('select' === $options['type'] && 'checkbox' !== $checkbox[0]) {
+		$multiple = current(explode(' ', $multiple));
+		if ('select' === $type && !$multiple) {
+			return null;
+		}
+		$hiddenField = $this->_extractOption('hiddenField', $options, true);
+		if (!$hiddenField) {
 			return null;
 		}
 
 		$out = null;
-		$hiddenField = $this->_extractOption('hiddenField', $options, true);
-		if ($hiddenField) {
-			if (!isset($options['value']) || $options['value'] === '') {
-				$out = $this->hidden($fieldName, array(
-					'id' => $options['id'] . '_', 'value' => '', 'name' => $options['name']
-				));
+		if ('checkbox' === $type || !isset($options['value']) || $options['value'] === '') {
+			$style = ('select' === $type && 'checkbox' !== $multiple) ? null : '_';
+			$hiddenOptions = array(
+				'id' => $options['id'] . $style,
+				'name' => $options['name'],
+				'value' => '',
+			);
+			if ('checkbox' === $type) {
+				$hiddenOptions['value'] = ($hiddenField !== true ? $hiddenField : '0');
+				$hiddenOptions['secure'] = false;
 			}
+			if (isset($options['disabled']) && $options['disabled'] == true) {
+				$hiddenOptions['disabled'] = 'disabled';
+			}
+			$out = $this->hidden($fieldName, $hiddenOptions);
 		}
 		return $out;
 	}
