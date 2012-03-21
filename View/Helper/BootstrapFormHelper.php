@@ -176,15 +176,8 @@ class BootstrapFormHelper extends FormHelper {
 			$options
 		);
 
-		$secure = $this->_extractOption('label', $options, null);
-		$options['secure'] = false;
-		$options = $this->_initInputField($fieldName, $options);
-		if (is_null($secure)) {
-			unset($options['secure']);
-		} else {
-			$options['secure'] = $secure;
-		}
-		$options = $this->_setType($options);
+		$type = $this->_extractOption('type', $options);
+		$options = $this->_getType($options);
 
 		$options['label'] = $this->_extractOption('label', $options);
 		if (false !== $options['label'] && !is_array($options['label'])) {
@@ -217,6 +210,9 @@ class BootstrapFormHelper extends FormHelper {
 			$options['hiddenField'] = false;
 		}
 
+		if (is_null($type)) {
+			unset($options['type']);
+		}
 		$out = parent::input($fieldName, $options);
 
 		if ($div) {
@@ -233,12 +229,11 @@ class BootstrapFormHelper extends FormHelper {
 		return $out;
 	}
 
-	protected function _setType($options) {
+	protected function _getType($options) {
 		$modelKey = $this->model();
 		$fieldKey = $this->field();
 
 		if (!isset($options['type'])) {
-			$magicType = true;
 			$options['type'] = 'text';
 			if (isset($options['options'])) {
 				$options['type'] = 'select';
@@ -268,13 +263,6 @@ class BootstrapFormHelper extends FormHelper {
 				if ($fieldKey == $primaryKey) {
 					$options['type'] = 'hidden';
 				}
-				if (
-					$options['type'] === 'number' &&
-					$type === 'float' &&
-					!isset($options['step'])
-				) {
-					$options['step'] = 'any';
-				}
 			}
 			if (preg_match('/_id$/', $fieldKey) && $options['type'] !== 'hidden') {
 				$options['type'] = 'select';
@@ -282,9 +270,6 @@ class BootstrapFormHelper extends FormHelper {
 
 			if ($modelKey === $fieldKey) {
 				$options['type'] = 'select';
-				if (!isset($options['multiple'])) {
-					$options['multiple'] = 'multiple';
-				}
 			}
 		}
 		return $options;
@@ -359,12 +344,16 @@ class BootstrapFormHelper extends FormHelper {
 
 		$out = null;
 		if ('checkbox' === $type || !isset($options['value']) || $options['value'] === '') {
+			$options['secure'] = false;
+			$options = $this->_initInputField($fieldName, $options);
+
 			$style = ('select' === $type && 'checkbox' !== $multiple) ? null : '_';
 			$hiddenOptions = array(
 				'id' => $options['id'] . $style,
 				'name' => $options['name'],
 				'value' => '',
 			);
+
 			if ('checkbox' === $type) {
 				$hiddenOptions['value'] = ($hiddenField !== true ? $hiddenField : '0');
 				$hiddenOptions['secure'] = false;
