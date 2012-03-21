@@ -39,6 +39,11 @@ Controller/AppController.php
 
 Copy app/Plugin/TwitterBootstrap/View/Layouts/bootstrap.ctp to app/View/Layouts/bootstrap.ctp
 
+Install as git submodule
+-------------------------------------
+
+git submodule add https://github.com/slywalker/TwitterBootstrap.git app/Plugin/TwitterBootstrap
+
 Usage (Using as alias of core helper)
 -------------------------------------
 
