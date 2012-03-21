@@ -81,6 +81,9 @@ class BootstrapFormHelper extends FormHelper {
 			return $options;
 		} else {
 			$label = $options['_label'];
+			if (!is_array($label)) {
+				$label = array('text' => $label);
+			}
 			$after = $options['_after'];
 
 			if ($options['_div']) {
@@ -92,9 +95,6 @@ class BootstrapFormHelper extends FormHelper {
 			unset($options['_label']);
 			unset($options['_div']);
 
-			if (!is_array($label)) {
-				$label = array('text' => $label);
-			}
 			$label = $this->addClass($label, 'checkbox');
 			$text = $label['text'];
 			unset($label['text']);
