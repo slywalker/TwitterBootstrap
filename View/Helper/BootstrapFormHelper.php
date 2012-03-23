@@ -18,7 +18,7 @@ class BootstrapFormHelper extends FormHelper {
 
 	const CLASS_BUTTON = 'btn';
 
-	public $helpers = array('Html');
+	public $helpers = array('Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'));
 
 	public function textarea($fieldName, $options, $before = false) {
 		if ($before) {
@@ -152,20 +152,13 @@ class BootstrapFormHelper extends FormHelper {
 		$inputDefaults = $this->_extractOption('inputDefaults', $options, array());
 
 		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array(
-				'div' => false,
-				'label' => false,
-			));
+			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false, 'label' => false));
 		}
 		elseif (in_array(self::FORM_HORIZONTAL, $class)) {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array(
-				'div' => self::CLASS_GROUP,
-			));
+			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => self::CLASS_GROUP));
 		}
 		else {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array(
-				'div' => false,
-			));
+			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false));
 		}
 
 		return parent::create($model, $options);
@@ -176,10 +169,15 @@ class BootstrapFormHelper extends FormHelper {
 			'type' => 'submit',
 			'class' => self::CLASS_BUTTON,
 			'div' => self::CLASS_ACTION,
+			'icon' => null,
 		);
 		$options = array_merge($default, $this->_inputDefaults, $options);
 		if (self::CLASS_GROUP === $options['div']) {
 			$options['div'] = self::CLASS_ACTION;
+		}
+		if ($options['icon']) {
+			$caption = $this->Html->icon($options['icon']) . ' ' . $caption;
+			unset($options['icon']);
 		}
 		$div = $this->_extractOption('div', $options);
 		$out = $this->button($caption, $options);
@@ -208,7 +206,7 @@ class BootstrapFormHelper extends FormHelper {
 			$options['hiddenField'] = false;
 		}
 
-		if (is_null($type)) {
+		if (is_null($type) && empty($options['_type'])) {
 			unset($options['type']);
 		}
 

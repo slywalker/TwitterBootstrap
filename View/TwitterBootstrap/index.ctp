@@ -51,7 +51,7 @@
 					// 'between' => 'This is cheack for between.',
 					// 'after' => 'This is cheack for after.',
 				)); ?>
-				<?php echo $this->Form->submit('Submit', array('div' => false)); ?>
+				<?php echo $this->Form->submit('Submit', array('icon' => 'pencil')); ?>
 			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;label&gt;</span><span class="pln">Label name</span><span class="tag">&lt;/label&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"span3"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Type something…"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"help-inline"</span><span class="tag">&gt;</span><span class="pln">Associated help text!</span><span class="tag">&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span><span class="pln"> Check me out</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/label&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Submit</span><span class="tag">&lt;/button&gt;</span></li><li class="L8"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
@@ -76,7 +76,7 @@
 					'type' => 'text',
 					'class' => 'input-medium search-query',
 				)); ?>
-				<?php echo $this->Form->submit('Search', array('div' => false)); ?>
+				<?php echo $this->Form->submit('Search'); ?>
 			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well form-search"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-medium search-query"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Search</span><span class="tag">&lt;/button&gt;</span></li><li class="L3"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
@@ -115,7 +115,7 @@
 					'label' => 'Remember me',
 					'type' => 'checkbox',
 				)); ?>
-				<?php echo $this->Form->submit('Sign in', array('div' => false)); ?>
+				<?php echo $this->Form->submit('Sign in'); ?>
 			<?php echo $this->Form->end(); ?>
 
 			<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"well form-inline"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-small"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Email"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"input-small"</span><span class="pln"> </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Password"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"checkbox"</span><span class="tag">&gt;</span><span class="pln"> Remember me</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;/label&gt;</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Sign in</span><span class="tag">&lt;/button&gt;</span></li><li class="L7"><span class="tag">&lt;/form&gt;</span></li></ol></pre>
@@ -646,4 +646,53 @@
 		$this->Html->link('two', '/two'),
 		'three',
 	)); ?>
+</section>
+
+<section id="button">
+	<h2>Buttons</h2>
+	<div class="row">
+		<div class="span4">
+			<div class="btn-toolbar" style="margin-bottom: 9px">
+				<div class="btn-group">
+					<?php echo $this->Html->link(null, '#', array('class' => 'btn', 'icon' => 'align-left')); ?>
+					<?php echo $this->Html->link(null, '#', array('class' => 'btn', 'icon' => 'align-center')); ?>
+					<?php echo $this->Html->link(null, '#', array('class' => 'btn', 'icon' => 'align-right')); ?>
+					<?php echo $this->Html->link(null, '#', array('class' => 'btn', 'icon' => 'align-justify')); ?>
+				</div>
+				<div class="btn-group">
+					<?php echo $this->Html->link('User', '#', array('class' => 'btn btn-primary', 'icon' => 'user white')); ?>
+					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><?php echo $this->Html->link('Edit', '#', array('icon' => 'pencil')); ?></li>
+						<li><?php echo $this->Html->link('Delete', '#', array('icon' => 'trash')); ?></li>
+						<li><?php echo $this->Html->link('Ban', '#', array('icon' => 'ban-circle')); ?></li>
+						<li class="divider"></li>
+						<li><?php echo $this->Html->link('Make admin', '#'); ?></li>
+					</ul>
+				</div>
+			</div>
+			<p>
+				<?php echo $this->Html->link('Refresh', '#', array('class' => 'btn', 'icon' => 'refresh')); ?>
+				<?php echo $this->Html->link('Checkout', '#', array('class' => 'btn btn-success', 'icon' => 'shopping-cart white')); ?>
+				<?php echo $this->Html->link('Delete', '#', array('class' => 'btn btn-danger', 'icon' => 'trash white')); ?>
+			</p>
+			<p>
+				<?php echo $this->Html->link('Comment', '#', array('class' => 'btn btn-large', 'icon' => 'comment')); ?>
+				<?php echo $this->Html->link('Settings', '#', array('class' => 'btn btn-small', 'icon' => 'cog')); ?>
+				<?php echo $this->Html->link('More Info', '#', array('class' => 'btn btn-small btn-info', 'icon' => 'info-sign white')); ?>
+			</p>
+		</div>
+		<div class="span4">
+			<div class="well" style="padding: 8px 0;">
+				<ul class="nav nav-list">
+					<li class="active"><?php echo $this->Html->link('Home', '#', array('icon' => 'home white')); ?></li>
+					<li><?php echo $this->Html->link('Library', '#', array('icon' => 'book')); ?></li>
+					<li><?php echo $this->Html->link('Applications', '#', array('icon' => 'pencil')); ?></li>
+				</ul>
+			</div> <!-- /well -->
+		</div>
+		<div class="span4">
+			<?php echo $this->Form->input('text', array('class' => 'span2', 'label' => 'Email address', 'prepend' => $this->Html->icon('envelope'))); ?>
+		</div>
+	</div>
 </section>
