@@ -318,7 +318,8 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	protected function _controlGroupStates($fieldName, $options) {
-		if (false !== $this->_extractOption('div', $options)) {
+		$div = $this->_extractOption('div', $options);
+		if (false !== $div) {
 			$inlines = (array) $this->_extractOption('helpInline', $options, array());
 			foreach ($options as $key => $value) {
 				if (in_array($key, array('warning', 'success'))) {
