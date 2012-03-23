@@ -244,11 +244,11 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	protected function _getType($fieldName, $options) {
-		$this->setEntity($fieldName);
-		$modelKey = $this->model();
-		$fieldKey = $this->field();
-
 		if (!isset($options['type'])) {
+			$this->setEntity($fieldName);
+			$modelKey = $this->model();
+			$fieldKey = $this->field();
+
 			$options['type'] = 'text';
 			if (isset($options['options'])) {
 				$options['type'] = 'select';
