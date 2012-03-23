@@ -18,6 +18,8 @@ class BootstrapFormHelper extends FormHelper {
 
 	const CLASS_BUTTON = 'btn';
 
+	const CLASS_ERROR = 'error';
+
 	public $helpers = array('Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'));
 
 	private $__opts = array();
@@ -337,7 +339,9 @@ class BootstrapFormHelper extends FormHelper {
 					'class' => 'help-inline error-message',
 				),
 			));
-			$options = $this->addClass($options, 'error', 'div');
+			if (false !== $div) {
+				$options = $this->addClass($options, self::CLASS_ERROR, 'div');
+			}
 		}
 		return $options;
 	}
