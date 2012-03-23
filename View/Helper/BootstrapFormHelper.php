@@ -192,7 +192,7 @@ class BootstrapFormHelper extends FormHelper {
 		);
 
 		$type = $this->_extractOption('type', $options);
-		$options = $this->_getType($options);
+		$options = $this->_getType($fieldName, $options);
 
 		$options = $this->uneditable($fieldName, $options, true);
 		$options = $this->addon($fieldName, $options, true);
@@ -247,7 +247,8 @@ class BootstrapFormHelper extends FormHelper {
 		return (false === $div) ? $out : $this->Html->div($div, $out);
 	}
 
-	protected function _getType($options) {
+	protected function _getType($fieldName, $options) {
+		$this->setEntity($fieldName);
 		$modelKey = $this->model();
 		$fieldKey = $this->field();
 
