@@ -4,6 +4,20 @@ App::uses('Set', 'Utility');
 
 class BootstrapFormHelper extends FormHelper {
 
+	const FORM_SEARCH = 'form-search';
+
+	const FORM_INLINE = 'form-inline';
+
+	const FORM_HORIZONTAL = 'form-horizontal';
+
+	const CLASS_GROUP = 'control-group';
+
+	const CLASS_INPUTS = 'controls';
+
+	const CLASS_ACTION = 'form-actions';
+
+	const CLASS_BUTTON = 'btn';
+
 	public $helpers = array('Html');
 
 	public function textarea($fieldName, $options, $before = false) {
@@ -137,15 +151,15 @@ class BootstrapFormHelper extends FormHelper {
 		$class = explode(' ', $this->_extractOption('class', $options));
 		$inputDefaults = $this->_extractOption('inputDefaults', $options, array());
 
-		if (in_array('form-search', $class) || in_array('form-inline', $class)) {
+		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array(
 				'div' => false,
 				'label' => false,
 			));
 		}
-		elseif (in_array('form-horizontal', $class)) {
+		elseif (in_array(self::FORM_HORIZONTAL, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array(
-				'div' => 'control-group',
+				'div' => self::CLASS_GROUP,
 			));
 		}
 		else {
@@ -160,10 +174,13 @@ class BootstrapFormHelper extends FormHelper {
 	public function submit($caption = null, $options = array()) {
 		$default = array(
 			'type' => 'submit',
-			'class' => 'btn',
-			'div' => 'form-actions',
+			'class' => self::CLASS_BUTTON,
+			'div' => self::CLASS_ACTION,
 		);
 		$options = array_merge($default, $this->_inputDefaults, $options);
+		if (self::CLASS_GROUP === $options['div']) {
+			$options['div'] = self::CLASS_ACTION;
+		}
 		$div = $this->_extractOption('div', $options);
 		$out = $this->button($caption, $options);
 		return (false === $div) ? $out : $this->Html->div($div, $out);
@@ -225,7 +242,7 @@ class BootstrapFormHelper extends FormHelper {
 		$options['between'] = null;
 
 		$input = parent::input($fieldName, $options);
-		$divControls = $this->_extractOption('divControls', $options, 'controls');
+		$divControls = $this->_extractOption('divControls', $options, self::CLASS_INPUTS);
 		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
 
 		$out = $before . $label . $between . $input;
