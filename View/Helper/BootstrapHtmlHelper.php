@@ -4,7 +4,32 @@ App::uses('Inflector', 'Utility');
 
 class BootstrapHtmlHelper extends HtmlHelper {
 
-	public $helpers = array('Html');
+	const ICON_PREFIX = 'icon-';
+
+	public function icon($class) {
+		$class = explode(' ', $class);
+		foreach ($class as &$_class) {
+			if ($_class) {
+				$_class = self::ICON_PREFIX . $_class;
+			} else {
+				unset($_class);
+			}
+		}
+		return '<i class="' . implode(' ', $class) . '"></i>';
+	}
+
+	public function link($title, $url = null, $options = array(), $confirmMessage = false) {
+		$default = array('icon' => null, 'escape' => true);
+		$options += $default;
+		if ($options['icon']) {
+			if ($options['escape']) {
+				$title = h($title);
+			}
+			$title = $this->icon($options['icon']) . ' ' . $title;
+			$options['escape'] = false;
+		}
+		return parent::link($title, $url, $options, $confirmMessage);
+	}
 
 	public function css($url = null, $rel = null, $options = array()) {
 		if (empty($url)) {
