@@ -163,7 +163,7 @@ class BootstrapFormHelper extends FormHelper {
 			'class' => 'btn',
 			'div' => 'form-actions',
 		);
-		$options = Set::merge($default, $options);
+		$options = array_merge($default, $this->_inputDefaults, $options);
 		$div = $this->_extractOption('div', $options);
 		$out = $this->button($caption, $options);
 		return (false === $div) ? $out : $this->Html->div($div, $out);
