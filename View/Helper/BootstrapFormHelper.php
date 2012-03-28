@@ -155,7 +155,7 @@ class BootstrapFormHelper extends FormHelper {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => self::CLASS_GROUP));
 		}
 		else {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false));
+			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => null));
 		}
 
 		return parent::create($model, $options);
