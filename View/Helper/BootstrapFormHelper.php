@@ -279,6 +279,8 @@ class BootstrapFormHelper extends FormHelper {
 				}
 				if ($fieldKey == $primaryKey) {
 					$options['type'] = 'hidden';
+					$options['div'] = false;
+					$options['label'] = false;
 				}
 			}
 			if (preg_match('/_id$/', $fieldKey) && $options['type'] !== 'hidden') {
