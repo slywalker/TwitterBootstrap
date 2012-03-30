@@ -5,9 +5,22 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 
 	public function pagination($options = array()) {
 		$default = array(
-			'units' => array('first', 'prev', 'numbers', 'next', 'last'),
-			'div' => 'pagination pagination-centered',
+			'div' => 'pagination pagination-centered'
 		);
+
+		$pagingParams = reset($this->request->params['paging']);
+		$pageCount = $pagingParams['pageCount'];
+
+		if ($pageCount < 2) {
+			// Don't display pagination if there is only one page
+			return '';
+		} else if ($pageCount == 2) {
+			// If only two pages, don't show duplicate prev/next buttons
+			$default['units'] = array('prev', 'numbers', 'next');
+		} else {
+			$default['units'] = array('first', 'prev', 'numbers', 'next', 'last');
+		}
+
 		$options += $default;
 
 		$units = $options['units'];
