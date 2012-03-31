@@ -192,16 +192,22 @@ class BootstrapFormHelper extends FormHelper {
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($fieldName, $options);
 
-		$options = $this->uneditable($fieldName, $options, true);
-		$options = $this->addon($fieldName, $options, true);
-		$options = $this->textarea($fieldName, $options, true);
-		$options = $this->checkbox($fieldName, $options, true);
-		$options = $this->_controlGroupStates($fieldName, $options);
-		$options = $this->_buildAfter($options);
+		$hidden = null;
+		if ('hidden' === $options['type']) {
+			$options['div'] = false;
+			$options['label'] = false;
+		} else {
+			$options = $this->uneditable($fieldName, $options, true);
+			$options = $this->addon($fieldName, $options, true);
+			$options = $this->textarea($fieldName, $options, true);
+			$options = $this->checkbox($fieldName, $options, true);
+			$options = $this->_controlGroupStates($fieldName, $options);
+			$options = $this->_buildAfter($options);
 
-		$hidden = $this->_hidden($fieldName, $options);
-		if ($hidden) {
-			$options['hiddenField'] = false;
+			$hidden = $this->_hidden($fieldName, $options);
+			if ($hidden) {
+				$options['hiddenField'] = false;
+			}
 		}
 
 		if (is_null($type) && empty($this->__opts[$fieldName]['type'])) {
@@ -279,8 +285,6 @@ class BootstrapFormHelper extends FormHelper {
 				}
 				if ($fieldKey == $primaryKey) {
 					$options['type'] = 'hidden';
-					$options['div'] = false;
-					$options['label'] = false;
 				}
 			}
 			if (preg_match('/_id$/', $fieldKey) && $options['type'] !== 'hidden') {
