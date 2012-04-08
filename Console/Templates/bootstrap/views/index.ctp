@@ -46,6 +46,7 @@ echo "\t\t<?php endforeach; ?>\n";
 		<?php echo "<?php echo \$this->BootstrapPaginator->pagination(); ?>\n"; ?>
 	</div>
 	<div class="span3">
+		<div class="well" style="padding: 8px 0; margin-top:8px;">
 		<ul class="nav nav-list">
 			<li class="nav-header"><?php echo "<?php echo __('Actions'); ?>"; ?></li>
 			<li><?php echo "<?php echo \$this->Html->link(__('New %s', __('" . $singularHumanName . "')), array('action' => 'add')); ?>";?></li>
@@ -62,5 +63,6 @@ echo "\t\t<?php endforeach; ?>\n";
 			}
 ?>
 		</ul>
+		</div>
 	</div>
 </div>
