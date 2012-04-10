@@ -24,6 +24,7 @@ foreach ($fields as $field) {
 		</dl>
 	</div>
 	<div class="span3">
+		<div class="well" style="padding: 8px 0; margin-top:8px;">
 		<ul class="nav nav-list">
 			<li class="nav-header"><?php echo "<?php echo __('Actions'); ?>"; ?></li>
 <?php
@@ -44,6 +45,7 @@ foreach ($fields as $field) {
 	}
 ?>
 		</ul>
+		</div>
 	</div>
 <div>
 
