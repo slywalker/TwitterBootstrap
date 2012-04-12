@@ -38,6 +38,7 @@
 		?>
 	</div>
 	<div class="span3">
+		<div class="well" style="padding: 8px 0; margin-top:8px;">
 		<ul class="nav nav-list">
 			<li class="nav-header"><?php echo "<?php echo __('Actions'); ?>"; ?></li>
 <?php if (strpos($action, 'add') === false): ?>
@@ -57,5 +58,6 @@
 	}
 ?>
 		</ul>
+		</div>
 	</div>
 </div>
