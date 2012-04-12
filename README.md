@@ -12,6 +12,7 @@ This v1.2.0 supports Bootstrap v2.0.2
 Add gitsubmodule
 
 	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git app/Plugin/TwitterBootstrap
+	$ git submodule update --init --recursive
 
 or download this plugin [Downloads · slywalker/TwitterBootstrap](https://github.com/slywalker/TwitterBootstrap/downloads), and move into app/Plugin/
 
@@ -23,8 +24,8 @@ copy files less, js and img into webroot
 
 	$ cd /your/app/path
 	$ cake twitter_bootstrap.copy
-	
-make css/bootstrap.min.css, css/bootstrap-responsive.min.css and js/bootstrap.min.js	
+
+make css/bootstrap.min.css, css/bootstrap-responsive.min.css and js/bootstrap.min.js
 
 	$ cd /your/app/path
 	$ cake twitter_bootstrap.make
@@ -51,7 +52,7 @@ Controller/AppController.php
 			'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
 			'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 		);
-	
+
 	}
 
 ##Usage
