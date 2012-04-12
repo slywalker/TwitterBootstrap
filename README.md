@@ -1,5 +1,4 @@
-TwitterBootstrap Plugin for CakePHP 2.x
-=======================================
+#TwitterBootstrap Plugin for CakePHP2.x
 
 About Bootstrap, from Twitter
 
@@ -7,53 +6,64 @@ About Bootstrap, from Twitter
 
 [twitter/bootstrap - GitHub](https://github.com/twitter/bootstrap)
 
-This v1.1.10 supports Bootstrap v2.0.2
+This v1.2.0 supports Bootstrap v2.0.2
 
-How to install
---------------
+##Install
+Add gitsubmodule
 
-Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
-Move files to app/Plugin/TwitterBootstrap/webroot/
+	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git app/Plugin/TwitterBootstrap
+
+or download this plugin [Downloads · slywalker/TwitterBootstrap](https://github.com/slywalker/TwitterBootstrap/downloads), and move into app/Plugin/
+
+###Can you use command "lessc" and "uglifyjs" ?
+
+####Yes!
+
+copy files less, js and img into webroot
+
+	$ cd /your/app/path
+	$ cake twitter_bootstrap.copy
+	
+make css/bootstrap.min.css, css/bootstrap-responsive.min.css and js/bootstrap.min.js	
+
+	$ cd /your/app/path
+	$ cake twitter_bootstrap.make
+
+####No...
+
+Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/), and move files to app/Plugin/TwitterBootstrap/webroot/
+
+##Configuration
+
+Add your app/Config/bootstrap.php
+
+	CakePlugin::load('TwitterBootstrap');
+
 
 Controller/AppController.php
 
 	<?php
 	class AppController extends Controller {
 
-		// Usig as plugin's helper
-		public $helpers = array(
-			'Session', 'Html', 'Form',
-			'TwitterBootstrap.BootstrapHtml',
-			'TwitterBootstrap.BootstrapForm',
-			'TwitterBootstrap.BootstrapPaginator',
-		);
-
-		// Using as alias of core helper
 		public $helpers = array(
 			'Session',
 			'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
 			'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
 			'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 		);
+	
 	}
 
-Copy app/Plugin/TwitterBootstrap/View/Layouts/bootstrap.ctp to app/View/Layouts/bootstrap.ctp
+##Usage
 
-Install as git submodule
--------------------------------------
+View/Layout/default.ctp
 
-git submodule add https://github.com/slywalker/TwitterBootstrap.git app/Plugin/TwitterBootstrap
-
-Usage (Using as alias of core helper)
--------------------------------------
-
-Load CSS
-
-	<?php echo $this->Html->css(); ?> load bootstrap.min.css
+	<?php echo $this->Html->css('bootstrap.min'); ?>
+	<?php echo $this->Html->css('bootstrap-responsive.min'); ?>
 
 Load JS
 
-	<?php echo $this->Html->script(); ?> load bootstrap.min.js
+	<?php echo $this->Html->script('bootstrap.min'); ?>
 
 Output form input as Bootstrap format
 
@@ -160,8 +170,7 @@ Breadcrumb
 
 You can see more sample. access http://{webroot}/twitter_bootstrap
 
-License
--------
+##License
 
 The MIT License (MIT)
 
