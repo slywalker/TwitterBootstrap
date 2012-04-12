@@ -30,6 +30,12 @@ class CopyShell extends AppShell {
 	}
 
 	protected function _copy($options) {
+		$default = array(
+			'from' => null,
+			'to' => null,
+			'skip' => array('tests', 'README.md'),
+		);
+		$options += $default;
 		$this->out('Copy from ' . $options['from'] . ' to ' . $options['to']);
 		if ($this->Folder->copy($options)) {
 			$this->out('Success.');
