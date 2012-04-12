@@ -6,7 +6,7 @@ About Bootstrap, from Twitter
 
 [twitter/bootstrap - GitHub](https://github.com/twitter/bootstrap)
 
-This v1.2.0 supports Bootstrap v2.0.2
+This v1.2.1 supports Bootstrap v2.0.2
 
 ##Install
 Add gitsubmodule
