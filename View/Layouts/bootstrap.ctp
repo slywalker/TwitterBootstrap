@@ -1,5 +1,4 @@
 <?php $this->loadHelper('TwitterBootstrap.BootstrapHtml'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,10 @@
 	<![endif]-->
 
 	<!-- Le styles -->
-	<?php echo $this->Html->css('bootstrap'); ?>
+	<?php
+		echo $this->Html->css('bootstrap');
+		echo $this->fetch('css');
+	?>
 	<style>
 		body {
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -59,14 +61,14 @@
 	<div class="container-fluid">
 		<h1><?php echo $title_for_layout; ?></h1>
 		<?php echo $this->Session->flash(); ?>
-		<?php echo $content_for_layout; ?>
+		<?php echo $this->fetch('content'); ?>
 	</div> <!-- /container -->
 
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<?php echo $this->BootstrapHtml->script('bootstrap'); ?>
-	<?php echo $scripts_for_layout; ?>
+	<?php echo $this->fetch('script'); ?>
 </body>
 </html>
