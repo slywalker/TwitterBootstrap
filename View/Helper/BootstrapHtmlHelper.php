@@ -75,7 +75,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 
 		$count = count($items);
 		$li = array();
-		for ($i=0; $i < $count - 1; $i++) {
+		for ($i = 0; $i < $count - 1; $i++) {
 			$text = $items[$i];
 			$text .= '&nbsp;<span class="divider">/</span>';
 			$li[] = parent::tag('li', $text);

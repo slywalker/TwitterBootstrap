@@ -22,7 +22,7 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'));
 
-	protected $__opts = array();
+	protected $_Opts = array();
 
 	public function textarea($fieldName, $options, $before = false) {
 		if ($before) {
@@ -37,9 +37,9 @@ class BootstrapFormHelper extends FormHelper {
 
 	public function uneditable($fieldName, $options, $before = false) {
 		if ($before) {
-			$class =  explode(' ', $this->_extractOption('class', $options));
+			$class = explode(' ', $this->_extractOption('class', $options));
 			if (in_array('uneditable-input', $class)) {
-				$this->__opts[$fieldName] = $options;
+				$this->_Opts[$fieldName] = $options;
 				$options['type'] = 'uneditable';
 			}
 			return $options;
@@ -53,17 +53,17 @@ class BootstrapFormHelper extends FormHelper {
 			$prepend = $this->_extractOption('prepend', $options);
 			$append = $this->_extractOption('append', $options);
 			if ($prepend || $append) {
-				$this->__opts[$fieldName] = $options;
+				$this->_Opts[$fieldName] = $options;
 				$options['type'] = 'addon';
 			}
 			return $options;
 		} else {
-			$type = $this->_extractOption('type', $this->__opts[$fieldName]);
+			$type = $this->_extractOption('type', $this->_Opts[$fieldName]);
 
 			$default = array('wrap' => 'span', 'class' => 'add-on');
 			$divOptions = array();
 			foreach (array('prepend', 'append') as $addon) {
-				$option = (array) $this->_extractOption($addon, $options);
+				$option = (array)$this->_extractOption($addon, $options);
 				$$addon = null;
 				if ($option) {
 					unset($options[$addon]);
@@ -95,13 +95,13 @@ class BootstrapFormHelper extends FormHelper {
 			}
 			return $options;
 		} else {
-			$label = $this->_extractOption('label', $this->__opts[$fieldName]);
+			$label = $this->_extractOption('label', $this->_Opts[$fieldName]);
 			if (!is_array($label)) {
 				$label = array('text' => $label);
 			}
-			$after = $this->_extractOption('after', $this->__opts[$fieldName]);
+			$after = $this->_extractOption('after', $this->_Opts[$fieldName]);
 
-			if ($this->_extractOption('div', $this->__opts[$fieldName])) {
+			if ($this->_extractOption('div', $this->_Opts[$fieldName])) {
 				$label['text'] = $after;
 				$label['class'] = null;
 			}
@@ -150,11 +150,9 @@ class BootstrapFormHelper extends FormHelper {
 
 		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false, 'label' => false));
-		}
-		elseif (in_array(self::FORM_HORIZONTAL, $class)) {
+		} elseif (in_array(self::FORM_HORIZONTAL, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => self::CLASS_GROUP));
-		}
-		else {
+		} else {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => null));
 		}
 
@@ -187,7 +185,7 @@ class BootstrapFormHelper extends FormHelper {
 			$this->_inputDefaults,
 			$options
 		);
-		$this->__opts[$fieldName] = $options;
+		$this->_Opts[$fieldName] = $options;
 
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($fieldName, $options);
@@ -210,7 +208,7 @@ class BootstrapFormHelper extends FormHelper {
 			}
 		}
 
-		if (is_null($type) && empty($this->__opts[$fieldName]['type'])) {
+		if (is_null($type) && empty($this->_Opts[$fieldName]['type'])) {
 			unset($options['type']);
 		}
 
@@ -300,7 +298,7 @@ class BootstrapFormHelper extends FormHelper {
 
 	protected function _buildAfter($options) {
 		$outInline = array();
-		$inlines = (array) $this->_extractOption('helpInline', $options, array());
+		$inlines = (array)$this->_extractOption('helpInline', $options, array());
 		if ($inlines) {
 			unset($options['helpInline']);
 		}
@@ -310,7 +308,7 @@ class BootstrapFormHelper extends FormHelper {
 		$outInline = implode(' ', $outInline);
 
 		$outBlock = array();
-		$blocks = (array) $this->_extractOption('helpBlock', $options, array());
+		$blocks = (array)$this->_extractOption('helpBlock', $options, array());
 		if ($blocks) {
 			unset($options['helpBlock']);
 		}
@@ -326,7 +324,7 @@ class BootstrapFormHelper extends FormHelper {
 	protected function _controlGroupStates($fieldName, $options) {
 		$div = $this->_extractOption('div', $options);
 		if (false !== $div) {
-			$inlines = (array) $this->_extractOption('helpInline', $options, array());
+			$inlines = (array)$this->_extractOption('helpInline', $options, array());
 			foreach ($options as $key => $value) {
 				if (in_array($key, array('warning', 'success'))) {
 					unset($options[$key]);
