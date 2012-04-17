@@ -77,7 +77,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		unset($options['title']);
 
 		$disabled = $options['disabled'];
-		$params = (array) $this->params($options['model']);
+		$params = (array)$this->params($options['model']);
 		if ($disabled === 'hide' && !$params['prevPage']) {
 			return null;
 		}
@@ -104,7 +104,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		unset($options['title']);
 
 		$disabled = $options['disabled'];
-		$params = (array) $this->params($options['model']);
+		$params = (array)$this->params($options['model']);
 		if ($disabled === 'hide' && !$params['nextPage']) {
 			return null;
 		}
@@ -126,7 +126,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		$options += $default;
 		$modulus = $options['modulus'];
 
-		$params = (array) $this->params($options['model']);
+		$params = (array)$this->params($options['model']);
 		extract($params);
 
 		if ($modulus > $pageCount) {
@@ -194,7 +194,7 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		}
 		unset($options['title']);
 
-		$params = (array) $this->params($options['model']);
+		$params = (array)$this->params($options['model']);
 
 		return (parent::last($title, $options)) ? (parent::last($title, $options)) : $this->Html->tag(
 			$options['tag'],
