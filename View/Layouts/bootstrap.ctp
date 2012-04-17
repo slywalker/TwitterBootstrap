@@ -14,7 +14,7 @@
 	<![endif]-->
 
 	<!-- Le styles -->
-	<?php echo $this->Html->css(); ?>
+	<?php echo $this->Html->css('bootstrap'); ?>
 	<style>
 		body {
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -66,7 +66,7 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-	<?php echo $this->BootstrapHtml->script(); ?>
+	<?php echo $this->BootstrapHtml->script('bootstrap'); ?>
 	<?php echo $scripts_for_layout; ?>
 </body>
 </html>
