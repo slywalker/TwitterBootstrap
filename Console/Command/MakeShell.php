@@ -6,7 +6,7 @@ class MakeShell extends AppShell {
 	public function main() {
 		$dir = WWW_ROOT;
 		$jsFiles = array();
-		foreach(glob($dir . 'js/lib/*.js') as $file) {
+		foreach (glob($dir . 'js/lib/*.js') as $file) {
 			$jsFiles[] = 'js/lib/' . basename($file);
 		}
 		$jsFiles = implode(' ', $jsFiles);
