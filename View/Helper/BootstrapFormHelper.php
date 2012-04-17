@@ -22,7 +22,7 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'));
 
-	private $__opts = array();
+	protected $__opts = array();
 
 	public function textarea($fieldName, $options, $before = false) {
 		if ($before) {
