@@ -32,7 +32,7 @@
 			</form>
 
 			<h3>BootstrapFormHelper</h3>
-			<?php echo $this->Form->create(null, array('class' => 'well')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'well')); ?>
 				<?php echo $this->Form->input(uniqid(), array(
 					'label' => 'Label name',
 					'type' => 'text',
@@ -71,7 +71,7 @@
 			</form>
 
 			<h3>BootstrapFormHelper</h3>
-			<?php echo $this->Form->create(null, array('class' => 'well form-search')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'well form-search')); ?>
 				<?php echo $this->Form->input(uniqid(), array(
 					'type' => 'text',
 					'class' => 'input-medium search-query',
@@ -100,7 +100,7 @@
 			</form>
 
 			<h3>BootstrapFormHelper</h3>
-			<?php echo $this->Form->create(null, array('class' => 'well form-inline')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'well form-inline')); ?>
 				<?php echo $this->Form->input(uniqid(), array(
 					'type' => 'text',
 					'class' => 'input-small',
@@ -189,7 +189,7 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'form-horizontal')); ?>
 				<fieldset>
 					<legend>Controls Bootstrap supports <small>BootstrapFormHelper</small></legend>
 					<?php echo $this->Form->input(uniqid(), array(
@@ -334,7 +334,7 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'form-horizontal')); ?>
 				<fieldset>
 					<legend>Form control states <small>BootstrapFormHelper</small></legend>
 					<?php echo $this->Form->input(uniqid(), array(
@@ -538,7 +538,7 @@
 				</fieldset>
 			</form>
 
-			<?php echo $this->Form->create(null, array('class' => 'form-horizontal')); ?>
+			<?php echo $this->Form->create('Test', array('class' => 'form-horizontal')); ?>
 				<fieldset>
 					<legend>Extending form controls <small>BootstrapFormHelper</small></legend>
 					<?php echo $this->Form->input(uniqid(), array(
