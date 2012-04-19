@@ -24,9 +24,9 @@ class CopyShell extends AppShell {
 	}
 
 	public function main() {
-		$this->copy_less();
-		$this->copy_img();
-		$this->copy_js();
+		$this->copyLess();
+		$this->copyImg();
+		$this->copyJs();
 	}
 
 	protected function _copy($options) {
@@ -44,19 +44,19 @@ class CopyShell extends AppShell {
 		}
 	}
 
-	public function copy_less() {
+	public function copyLess() {
 		$from = $this->bootstrapPath . self::LESS_DIR;
 		$to = WWW_ROOT . 'css' . DS . 'lib';
 		$this->_copy(compact('from', 'to'));
 	}
 
-	public function copy_img() {
+	public function copyImg() {
 		$from = $this->bootstrapPath . self::IMG_DIR;
 		$to = WWW_ROOT . 'img';
 		$this->_copy(compact('from', 'to'));
 	}
 
-	public function copy_js() {
+	public function copyJs() {
 		$from = $this->bootstrapPath . self::JS_DIR;
 		$to = WWW_ROOT . 'js' . DS . 'lib';
 		$this->_copy(compact('from', 'to'));
