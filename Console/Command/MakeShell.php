@@ -14,8 +14,8 @@ class MakeShell extends AppShell {
 cd {$dir};
 lessc css/lib/bootstrap.less > css/bootstrap.css;
 lessc --compress css/lib/bootstrap.less > css/bootstrap.min.css;
-lessc css/lib/bootstrap-responsive.less > css/bootstrap-responsive.css;
-lessc --compress css/lib/bootstrap-responsive.less > css/bootstrap-responsive.min.css;
+lessc css/lib/responsive.less > css/bootstrap-responsive.css;
+lessc --compress css/lib/responsive.less > css/bootstrap-responsive.min.css;
 cat {$jsFiles} > js/bootstrap.js;
 uglifyjs -nc js/bootstrap.js > js/bootstrap.min.tmp.js;
 echo "/**\n* Bootstrap.js by @fat & @mdo\n* Copyright 2012 Twitter, Inc.\n* http://www.apache.org/licenses/LICENSE-2.0.txt\n*/" > js/copyright.js;
