@@ -27,6 +27,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 			}
 			$title = $this->icon($options['icon']) . ' ' . $title;
 			$options['escape'] = false;
+			unset($options['icon']);
 		}
 		return parent::link($title, $url, $options, $confirmMessage);
 	}
@@ -75,7 +76,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 
 		$count = count($items);
 		$li = array();
-		for ($i=0; $i < $count - 1; $i++) {
+		for ($i = 0; $i < $count - 1; $i++) {
 			$text = $items[$i];
 			$text .= '&nbsp;<span class="divider">/</span>';
 			$li[] = parent::tag('li', $text);
