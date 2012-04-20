@@ -5,17 +5,20 @@ class MakeShell extends AppShell {
 
 	public function main() {
 		$dir = WWW_ROOT;
-		$jsFiles = array();
+		$jsFiles = array('js/lib/bootstrap-tooltip.js');
 		foreach (glob($dir . 'js/lib/*.js') as $file) {
-			$jsFiles[] = 'js/lib/' . basename($file);
+			$filePath = 'js/lib/' . basename($file);
+			if (!in_array($filePath, $jsFiles)) {
+				$jsFiles[] = $filePath;
+			}
 		}
 		$jsFiles = implode(' ', $jsFiles);
 		$command = <<< EOT
 cd {$dir};
 lessc css/lib/bootstrap.less > css/bootstrap.css;
 lessc --compress css/lib/bootstrap.less > css/bootstrap.min.css;
-lessc css/lib/responsive.less > css/bootstrap-responsive.css;
-lessc --compress css/lib/responsive.less > css/bootstrap-responsive.min.css;
+lessc css/lib/responsive.less > css/responsive.css;
+lessc --compress css/lib/responsive.less > css/responsive.min.css;
 cat {$jsFiles} > js/bootstrap.js;
 uglifyjs -nc js/bootstrap.js > js/bootstrap.min.tmp.js;
 echo "/**\n* Bootstrap.js by @fat & @mdo\n* Copyright 2012 Twitter, Inc.\n* http://www.apache.org/licenses/LICENSE-2.0.txt\n*/" > js/copyright.js;
