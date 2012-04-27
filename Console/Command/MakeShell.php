@@ -28,8 +28,8 @@ EOT;
 		exec($command);
 		$this->out('Make css/bootstrap.css');
 		$this->out('Make css/bootstrap.min.css');
-		$this->out('Make css/bootstrap-responsive.css');
-		$this->out('Make css/bootstrap-responsive.min.css');
+		$this->out('Make css/responsive.css');
+		$this->out('Make css/responsive.min.css');
 		$this->out('Make js/bootstrap.min.js');
 	}
 
