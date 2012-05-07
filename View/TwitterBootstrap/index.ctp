@@ -487,6 +487,14 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="appendedInputButtons">Two-button append</label>
+						<div class="controls">
+							<div class="input-append">
+								<input class="span2" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button">Search</button><button class="btn" type="button">Options</button>
+							</div>
+							</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label" for="inlineCheckboxes">Inline checkboxes</label>
 						<div class="controls">
 							<label class="checkbox inline">
@@ -567,6 +575,15 @@
 						'type' => 'text',
 						'class' => 'span2',
 						'append' => array('Go!', array('wrap' => 'button', 'class' => 'btn')),
+					)); ?>
+					<?php echo $this->Form->input(uniqid(), array(
+						'label' => 'Two-button append',
+						'type' => 'text',
+						'class' => 'span2',
+						'append' => array(
+							array('Search', array('wrap' => 'button', 'class' => 'btn')),
+							array('Options', array('wrap' => 'button', 'class' => 'btn')),
+						)
 					)); ?>
 					<?php echo $this->Form->input(uniqid(), array(
 						'label' => 'Inline checkboxes',

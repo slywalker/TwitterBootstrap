@@ -63,19 +63,24 @@ class BootstrapFormHelper extends FormHelper {
 			$default = array('wrap' => 'span', 'class' => 'add-on');
 			$divOptions = array();
 			foreach (array('prepend', 'append') as $addon) {
-				$option = (array)$this->_extractOption($addon, $options);
 				$$addon = null;
+				$option = (array)$this->_extractOption($addon, $options);
 				if ($option) {
+					if (!is_array($option[0])) {
+						$option = array($option);
+					}
+					foreach ($option as $_option) {
+						array_push($_option, array());
+						list($text, $addonOptions) = $_option;
+						$addonOptions += $default;
+
+						$wrap = $addonOptions['wrap'];
+						unset($addonOptions['wrap']);
+
+						$$addon .= $this->Html->tag($wrap, $text, $addonOptions);
+					}
+
 					unset($options[$addon]);
-
-					array_push($option, array());
-					list($text, $addonOptions) = $option;
-					$addonOptions += $default;
-
-					$wrap = $addonOptions['wrap'];
-					unset($addonOptions['wrap']);
-
-					$$addon = $this->Html->tag($wrap, $text, $addonOptions);
 					$divOptions = $this->addClass($divOptions, 'input-' . $addon);
 				}
 			}
