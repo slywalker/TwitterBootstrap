@@ -6,6 +6,15 @@ class BootstrapHtmlHelper extends HtmlHelper {
 
 	const ICON_PREFIX = 'icon-';
 
+	public function __construct(View $View, $settings = array()) {
+		parent::__construct($View, $settings);
+		if (!empty($settings['configFile'])) {
+			$this->loadConfig($settings['configFile']);
+		} else {
+			$this->loadConfig('TwitterBootstrap.html5_tags');
+		}
+	}
+
 	public function icon($class) {
 		$class = explode(' ', $class);
 		foreach ($class as &$_class) {
