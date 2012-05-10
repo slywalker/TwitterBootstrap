@@ -3,7 +3,7 @@ The TwitterBootstrap Plugin provides an easy-to-use feature Bootstrap in CakePHP
 
 [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
 
-This v1.3.3 supports Bootstrap v2.0.3
+This v1.3.4 supports Bootstrap v2.0.3
 
 ##Installation
 ###This plugin
@@ -30,7 +30,7 @@ Clone
 ###Enable plugin
 You need to enable the plugin your app/Config/bootstrap.php file:
 
-	CakePlugin::load('Upload');
+	CakePlugin::load('TwitterBootstrap');
 
 If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
