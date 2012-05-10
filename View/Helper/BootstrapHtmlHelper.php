@@ -29,7 +29,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 
 	public function link($title, $url = null, $options = array(), $confirmMessage = false) {
 		$default = array('icon' => null, 'escape' => true);
-		$options = array_merge((array)$options, $default);
+		$options = array_merge($default, (array)$options);
 		if ($options['icon']) {
 			if ($options['escape']) {
 				$title = h($title);
@@ -81,7 +81,7 @@ class BootstrapHtmlHelper extends HtmlHelper {
 		$default = array(
 			'class' => 'breadcrumb',
 		);
-		$options = array_merge((array)$options, $default);
+		$options = array_merge($default, (array)$options);
 
 		$count = count($items);
 		$li = array();
