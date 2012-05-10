@@ -1,47 +1,53 @@
 #TwitterBootstrap Plugin for CakePHP2.x
-
-About Bootstrap, from Twitter
-
-[Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
-
-[twitter/bootstrap - GitHub](https://github.com/twitter/bootstrap)
-
+The TwitterBootstrap Plugin provides an easy-to-use feature Bootstrap in CakePHP2.x  
+[Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)  
 This v1.3.1 supports Bootstrap v2.0.3
 
-##Install
-Add gitsubmodule
+##Installation
+###This plugin
+Manual
 
-	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git app/Plugin/TwitterBootstrap
-	$ git submodule update --init --recursive
+- Download this plugin: [Downloads · slywalker/TwitterBootstrap](https://github.com/slywalker/TwitterBootstrap/downloads)
+- Unzip that download.
+- Copy the resulting folder to `app/Plugin`
+- Rename the folder you just copied to `TwitterBootstrap`
 
-or download this plugin [Downloads · slywalker/TwitterBootstrap](https://github.com/slywalker/TwitterBootstrap/downloads), and move into app/Plugin/
+Submodule
 
-###Can you use command "recess" and "uglifyjs" ?
+	$ cd /your_app_path  
+	$ git submodule add git://github.com/slywalker/TwitterBootstrap.git Plugin/TwitterBootstrap  
+	$ git submodule update --init --recursive  
 
-####Yes!
+Clone
 
-copy files less, js and img into webroot
+	$ cd /your_app_path/Plugin
+	$ git clone git://github.com/slywalker/TwitterBootstrap.git
+	$ cd TwitterBootstrap
+	$ git submodule update --init
 
-	$ cd /your/app/path
-	$ cake twitter_bootstrap.copy
+###Enable plugin
+You need to enable the plugin your app/Config/bootstrap.php file:
 
-make css/bootstrap.min.css, css/bootstrap-responsive.min.css and js/bootstrap.min.js
+	CakePlugin::load('Upload');
 
-	$ cd /your/app/path
-	$ cake twitter_bootstrap.make
+If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
-####No...
+###bootstrap
+Manual
 
-Download files from [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/), and move files to app/Plugin/TwitterBootstrap/webroot/
+- Download bootstrap: [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
+- Unzip that download.
+- Copy folders(css, img, js) in the resulting folder to `app/webroot`
 
-##Configuration
+Shell Command (need `recess` and `uglifyjs`)  
+(Copy less, js, img files to webroot and make css, js files)
 
-Add your app/Config/bootstrap.php
+	$ cd /your_app
+	$ Console/cake TwitterBootstrap.copy
+	$ Console/cake TwitterBootstrap.make
 
-	CakePlugin::load('TwitterBootstrap');
-
-
-Controller/AppController.php
+##Usage
+Controller/AppController.php:
 
 	<?php
 	class AppController extends Controller {
@@ -55,15 +61,10 @@ Controller/AppController.php
 
 	}
 
-##Usage
-
-View/Layout/default.ctp
+View/Layout/default.ctp:
 
 	<?php echo $this->Html->css('bootstrap.min'); ?>
 	<?php echo $this->Html->css('bootstrap-responsive.min'); ?>
-
-Load JS
-
 	<?php echo $this->Html->script('bootstrap.min'); ?>
 
 Output form input as Bootstrap format
