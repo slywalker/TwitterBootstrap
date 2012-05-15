@@ -5,8 +5,6 @@ class TwitterBootstrapController extends AppController {
 
 	public $uses = array();
 
-	public $layout = 'bootstrap';
-
 	public $components = array('Session');
 
 	public $helpers = array(
@@ -14,6 +12,13 @@ class TwitterBootstrapController extends AppController {
 		'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
 		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 	);
+
+	public function beforeFilter() {
+		if (Configure::read('debug') < 1) {
+			throw new MethodNotAllowedException(__('Debug setting does not allow access to this url.'));
+		}
+		parent::beforeFilter();
+	}
 
 	public function index() {
 		$this->Session->setFlash(__('Alert notice message testing...'), 'alert', array(
