@@ -168,7 +168,7 @@ class BootstrapFormHelper extends FormHelper {
 			'icon' => null,
 		);
 		$options = array_merge($default, $this->_inputDefaults, $options);
-		if ($this->_isHorizontal) {
+		if ($options['div'] !== false && $this->_isHorizontal) {
 			$options['div'] = self::CLASS_ACTION;
 		}
 		if ($options['icon']) {
