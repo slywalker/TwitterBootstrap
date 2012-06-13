@@ -147,10 +147,8 @@ class BootstrapFormHelper extends FormHelper {
 
 		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false, 'label' => false));
-		} elseif (in_array(self::FORM_HORIZONTAL, $class)) {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => self::CLASS_GROUP));
 		} else {
-			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => null));
+			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => self::CLASS_GROUP));
 		}
 
 		return parent::create($model, $options);
