@@ -22,6 +22,8 @@ class BootstrapFormHelper extends FormHelper {
 
 	public $helpers = array('Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'));
 
+	protected $_isHorizontal = false;
+
 	protected $_Opts = array();
 
 	public function uneditable($fieldName, $options = array(), $before = false) {
@@ -85,7 +87,7 @@ class BootstrapFormHelper extends FormHelper {
 		}
 		$after = $this->_extractOption('after', $this->_Opts[$fieldName]);
 
-		if ($this->_extractOption('div', $this->_Opts[$fieldName])) {
+		if ($this->_isHorizontal) {
 			$label['text'] = $after;
 			$label['class'] = null;
 		}
@@ -102,10 +104,10 @@ class BootstrapFormHelper extends FormHelper {
 			$options += array('cols' => false, 'rows' => '3');
 		}
 		if ('checkbox' === $options['type']) {
-			if (!$this->_extractOption('div', $options)) {
-				$options['label'] = false;
-			} else {
+			if ($this->_isHorizontal) {
 				$options['after'] = null;
+			} else {
+				$options['label'] = false;
 			}
 		}
 		return $options;
@@ -145,6 +147,10 @@ class BootstrapFormHelper extends FormHelper {
 		$class = explode(' ', $this->_extractOption('class', $options));
 		$inputDefaults = $this->_extractOption('inputDefaults', $options, array());
 
+		if (in_array(self::FORM_HORIZONTAL, $class)) {
+			$this->_isHorizontal = true;
+		}
+
 		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
 			$options['inputDefaults'] = Set::merge($inputDefaults, array('div' => false, 'label' => false));
 		} else {
@@ -162,7 +168,7 @@ class BootstrapFormHelper extends FormHelper {
 			'icon' => null,
 		);
 		$options = array_merge($default, $this->_inputDefaults, $options);
-		if (self::CLASS_GROUP === $options['div']) {
+		if ($this->_isHorizontal) {
 			$options['div'] = self::CLASS_ACTION;
 		}
 		if ($options['icon']) {
