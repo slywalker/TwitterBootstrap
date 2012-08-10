@@ -47,7 +47,7 @@ foreach ($fields as $field) {
 		</ul>
 		</div>
 	</div>
-<div>
+</div>
 
 <?php
 if (!empty($associations['hasOne'])) :
