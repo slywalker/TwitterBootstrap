@@ -6,6 +6,8 @@ class BootstrapHtmlHelper extends HtmlHelper {
 
 	const ICON_PREFIX = 'icon-';
 
+	const GLYPH_PREFIX = 'glyph-';
+
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 		if (!empty($settings['configFile'])) {
@@ -15,11 +17,31 @@ class BootstrapHtmlHelper extends HtmlHelper {
 		}
 	}
 
-	public function icon($class) {
+	public function beginRow($fluid = true) {
+		$clss = 'row';
+
+		if($fluid) {
+			$clss .= '-fluid';
+		}
+
+		return "\n" . '<div class="'.$clss.'">';
+	}
+
+	public function endRow() {
+		return "\n</div>";
+	}
+
+	public function glyphLink($title, $url = null, $options = array(), $confirmMessage = false) {
+		$options['glyph'] = true;
+
+		return $this->link($title, $url, $options, $confirmMessage);
+	}
+
+	public function icon($class, $useGlyph = false) {
 		$class = explode(' ', $class);
 		foreach ($class as &$_class) {
 			if ($_class) {
-				$_class = self::ICON_PREFIX . $_class;
+				$_class = ($useGlyph ? self::GLYPH_PREFIX : self::ICON_PREFIX) . $_class;
 			} else {
 				unset($_class);
 			}
@@ -28,15 +50,15 @@ class BootstrapHtmlHelper extends HtmlHelper {
 	}
 
 	public function link($title, $url = null, $options = array(), $confirmMessage = false) {
-		$default = array('icon' => null, 'escape' => true);
+		$default = array('icon' => null, 'escape' => true, 'glyph' => false);
 		$options = array_merge($default, (array)$options);
 		if ($options['icon']) {
 			if ($options['escape']) {
 				$title = h($title);
 			}
-			$title = $this->icon($options['icon']) . ' ' . $title;
+			$title = $this->icon($options['icon'], $options['glyph']) . ' ' . $title;
 			$options['escape'] = false;
-			unset($options['icon']);
+			unset($options['icon'], $options['glyph']);
 		}
 		return parent::link($title, $url, $options, $confirmMessage);
 	}
