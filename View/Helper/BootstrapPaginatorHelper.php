@@ -117,42 +117,22 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 	}
 
 	public function numbers($options = array()) {
-		$default = array(
+		$defaults = array(
 			'tag' => 'li',
+			'before' => null,
+			'after' => null,
 			'model' => $this->defaultModel(),
 			'class' => null,
-			'modulus' => '11',
+			'modulus' => 11,
+			'separator' => false,
+			'first' => null,
+			'last' => null,
+			'ellipsis' => '<li class="disabled"><a href="#">…</a></li>',
+			'currentClass' => 'current'
 		);
-		$options += $default;
-		$modulus = $options['modulus'];
-
-		$params = (array)$this->params($options['model']);
-		extract($params);
-
-		if ($modulus > $pageCount) {
-			$modulus = $pageCount;
-		}
-		$start = $page - intval($modulus / 2);
-		if ($start < 1) {
-			$start = 1;
-		}
-		$end = $start + $modulus;
-		if ($end > $pageCount) {
-			$end = $pageCount + 1;
-			$start = $end - $modulus;
-		}
-
-		$out = array();
-		for ($i = $start; $i < $end; $i++) {
-			$url = array('page' => $i);
-			$class = null;
-			if ($i == $page) {
-				$url = array();
-				$class = 'active';
-			}
-			$out[] = $this->Html->tag('li', $this->link($i, $url, $options), compact('class'));
-		}
-		return implode("\n", $out);
+		$options += $defaults;
+		$return = parent::numbers($options);
+		return preg_replace('@<li class="current">(.*?)</li>@', '<li class="current disabled"><a href="#">\1</a></li>', $return);
 	}
 
 	public function first($title = null, $options = array()) {
