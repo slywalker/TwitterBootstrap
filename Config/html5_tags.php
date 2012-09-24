@@ -11,7 +11,7 @@ $config = array('tags' => array(
 	'file_no_model' => '<input type="file" name="%s"%s>',
 	'submit' => '<input %s>',
 	'submitimage' => '<input type="image" src="%s"%s>',
-	'image' => '<img src="%s"%s>',
+	'image' => '<img src="%s" %s>',
 	'tagselfclosing' => '<%s%s>',
 	'css' => '<link rel="%s" href="%s"%s>',
 	'style' => '<style%s>%s</style>',
