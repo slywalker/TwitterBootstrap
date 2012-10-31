@@ -2,6 +2,7 @@
 $config = array('tags' => array(
 	'meta' => '<meta%s>',
 	'metalink' => '<link href="%s"%s>',
+	'input' => '<input name="%s"%s>',
 	'hidden' => '<input type="hidden" name="%s"%s>',
 	'checkbox' => '<input type="checkbox" name="%s"%s>',
 	'checkboxmultiple' => '<input type="checkbox" name="%s[]"%s>',
