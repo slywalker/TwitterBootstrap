@@ -176,6 +176,7 @@ class BootstrapFormHelper extends FormHelper {
 			unset($options['icon']);
 		}
 		$div = $this->_extractOption('div', $options);
+		unset($options['div']);
 		$out = $this->button($caption, $options);
 		return (false === $div) ? $out : $this->Html->div($div, $out);
 	}
@@ -315,9 +316,9 @@ class BootstrapFormHelper extends FormHelper {
 		foreach ($blocks as $block) {
 			$outBlock[] = $this->help($block, array('type' => 'block'));
 		}
-		$outBlock = implode("\n", $outBlock);
+		$outBlock = implode('', $outBlock);
 
-		$options['after'] = $outInline . "\n" . $outBlock . "\n" . $this->_extractOption('after', $options);
+		$options['after'] = $outInline . $outBlock . $this->_extractOption('after', $options);
 		return $options;
 	}
 
