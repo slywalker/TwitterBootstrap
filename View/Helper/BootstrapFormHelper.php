@@ -26,6 +26,68 @@ class BootstrapFormHelper extends FormHelper {
 
 	protected $_Opts = array();
 
+	protected $defaultSettings = array(
+		'useGrid' => false,
+		'cols' => array('3', '3', '3', '3'),
+		'fluid' => true
+	);
+
+	protected $gridControl = array(
+		'first' => true,
+		'cols' => false
+	);
+
+	public function __construct(View $View, $settings = array()) {
+		parent::__construct($View, $settings);
+
+		$this->settings = $this->defaultSettings;
+
+		if(is_array($settings)) {
+			$this->settings = array_merge($this->defaultSettings, $settings);
+		}
+	}
+
+	public function restoreDefaults() {
+		$this->_finishUnclosedRow();
+		$this->settings = $this->defaultSettings;
+		$this->gridControl['cols'] = $this->settings['cols'];
+	}
+
+	public function useGrid($yes = true) {
+		if($yes === false) {
+			$this->_finishUnclosedRow();
+		}
+
+		$this->settings['useGrid'] = $yes;
+
+		if(empty($this->gridControl['cols']))
+			$this->gridControl['cols'] = $this->settings['cols'];
+	}
+
+	public function setDefaultGrid($cols) {
+		$this->_finishUnclosedRow();
+		$this->useGrid();
+		$this->settings['cols'] = $cols;
+		$this->gridControl['cols'] = $cols;
+	}
+
+	public function defineRow($cols) {
+		$this->_finishUnclosedRow();
+		$this->useGrid();
+		$this->gridControl['cols'] = $cols;
+	}
+
+	public function textarea($fieldName, $options = array(), $before = false) {
+		if ($before) {
+			if ('textarea' === $options['type']) {
+				$options += array('cols' => false, 'rows' => '3');
+			}
+			return $options;
+		} else {
+			return parent::textarea($fieldName, $options);
+		}
+	}
+
 	public function uneditable($fieldName, $options = array(), $before = false) {
 		if ($before) {
 			$class = explode(' ', $this->_extractOption('class', $options));
@@ -190,6 +252,7 @@ class BootstrapFormHelper extends FormHelper {
 
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($fieldName, $options);
+		$isRequired = $this->_introspectModel($this->model(), 'validates', $this->field());
 
 		$hidden = null;
 		if ('hidden' === $options['type']) {
@@ -209,6 +272,7 @@ class BootstrapFormHelper extends FormHelper {
 		}
 
 		if (is_null($type) && empty($this->_Opts[$fieldName]['type'])) {
+			$type = $options['type'];
 			unset($options['type']);
 		}
 
@@ -219,6 +283,34 @@ class BootstrapFormHelper extends FormHelper {
 
 		$div = $this->_extractOption('div', $options);
 		$options['div'] = false;
+
+		if (is_string($div) || empty($div)) {
+			$clss = self::CLASS_GROUP;
+
+			if (strpos($div, self::CLASS_GROUP) !== false) {
+				$clss = '';
+			}
+
+			$clss .= ' ' . $div;
+
+			$div = array('class' => $clss);
+			unset($clss);
+		}
+		elseif (is_array($div) && !isset($div['class'])) {
+			$div['class'] = self::CLASS_GROUP;
+		}
+
+		if ($isRequired) {
+			$div['class'] .= ' required';
+		}
+
+		if($this->settings['useGrid'] && 'hidden' !== $type) {
+			$gridSize = array_shift($this->gridControl['cols']);
+
+			$div['class'] .= ' span' . $gridSize;
+		}
+
+		$div['class'] = trim($div['class']);
 
 		$before = $this->_extractOption('before', $options);
 		$options['before'] = null;
@@ -241,12 +333,31 @@ class BootstrapFormHelper extends FormHelper {
 		$between = $this->_extractOption('between', $options);
 		$options['between'] = null;
 
+		if (($type == 'text' || $type == 'textarea' || $type == 'select' || $type == 'number') &&
+			!preg_match('/span[0-9]+/', isset($options['class'])?$options['class']:'') &&
+			$this->settings['useGrid'] ) {
+			$options = $this->addClass($options, 'span12');
+		}
+
 		$input = parent::input($fieldName, $options);
 		$divControls = $this->_extractOption('divControls', $options, self::CLASS_INPUTS);
 		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
 
 		$out = $before . $label . $between . $input;
-		return (false === $div) ? $out : $this->Html->div($div, $out);
+		$out = (false === $div) ? $out : $this->Html->div($div, $out);
+
+		if($this->settings['useGrid'] && 'hidden' !== $type) {
+			if($this->gridControl['first']) {
+				$out = $this->_beginRow() . $out;
+				$this->gridControl['first'] = false;
+			}
+
+			if(current($this->gridControl['cols']) === false) {
+				$out .= $this->_endRow();
+			}
+		}
+
+		return $out;
 	}
 
 	protected function _getType($fieldName, $options) {
@@ -273,7 +384,7 @@ class BootstrapFormHelper extends FormHelper {
 					'boolean' => 'checkbox', 'timestamp' => 'datetime',
 					'text' => 'textarea', 'time' => 'time',
 					'date' => 'date', 'float' => 'number',
-					'integer' => 'number'
+					'decimal' => 'number', 'integer' => 'number'
 				);
 
 				if (isset($this->map[$type])) {
@@ -338,14 +449,27 @@ class BootstrapFormHelper extends FormHelper {
 		}
 		if ($this->error($fieldName)) {
 			$error = $this->_extractOption('error', $options, array());
-			$options['error'] = array_merge($error, array(
-				'attributes' => array(
-					'wrap' => 'span',
-					'class' => 'help-inline error-message',
-				),
-			));
-			if (false !== $div) {
-				$options = $this->addClass($options, self::CLASS_ERROR, 'div');
+
+			if (!$error) {
+				$options['error'] = false;
+			} else if (is_array($error)) {
+				if (array_key_exists('attributes', $error)) {
+					if (array_key_exists('wrap', $error['attributes']) && array_key_exists('class', $error['attributes'])) {
+						$options['error'] = $error;
+					}
+				} else {
+					$options['error'] = array_merge($error, array(
+						'attributes' => array(
+							'wrap' => 'span',
+							'class' => 'help-inline error-message',
+							),
+						)
+					);
+				}
+
+				if (false !== $div) {
+					$options = $this->addClass($options, self::CLASS_ERROR, 'div');
+				}
 			}
 		}
 		return $options;
@@ -401,5 +525,24 @@ class BootstrapFormHelper extends FormHelper {
 		$wrap = $options['wrap'];
 		unset($options['wrap']);
 		return $this->Html->tag($wrap , $text, $options);
+	}
+
+	protected function _beginRow($fluid = true) {
+		return $this->Html->beginRow($fluid);
+	}
+
+	protected function _endRow() {
+		$this->gridControl = array(
+			'first' => true,
+			'cols' => $this->settings['cols']
+		);
+
+		return $this->Html->endRow();
+	}
+
+	protected function _finishUnclosedRow() {
+		if($this->settings['useGrid'] === true && current($this->gridControl['cols']) === false) {
+			echo $this->_endRow();
+		}
 	}
 }
