@@ -176,6 +176,7 @@ class BootstrapFormHelper extends FormHelper {
 			unset($options['icon']);
 		}
 		$div = $this->_extractOption('div', $options);
+		unset($options['div']);
 		$out = $this->button($caption, $options);
 		return (false === $div) ? $out : $this->Html->div($div, $out);
 	}

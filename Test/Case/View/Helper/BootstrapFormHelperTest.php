@@ -49,9 +49,9 @@ class BootstrapFormHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testSubmit() {
-		$form = $this->BootstrapForm->submit();
+		$form = $this->BootstrapForm->submit('Submit');
 		$expected = '<div class="form-actions">' .
-			'<button type="submit" class="btn" div="form-actions"></button></div>';
+			'<button type="submit" class="btn">Submit</button></div>';
 		$this->assertSame($expected, $form);
 	}
 
