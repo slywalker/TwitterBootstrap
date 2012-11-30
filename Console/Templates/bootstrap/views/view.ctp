@@ -47,7 +47,7 @@ foreach ($fields as $field) {
 		</ul>
 		</div>
 	</div>
-<div>
+</div>
 
 <?php
 if (!empty($associations['hasOne'])) :
@@ -68,7 +68,7 @@ if (!empty($associations['hasOne'])) :
 	</div>
 	<div class="span3">
 		<ul class="nav nav-list">
-			<li><?php echo "<?php echo \$this->Html->link(__('Edit %s', __(" . Inflector::humanize(Inflector::underscore($alias)) . "')), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n";?>
+			<li><?php echo "<?php echo \$this->Html->link(__('Edit %s', __('" . Inflector::humanize(Inflector::underscore($alias)) . "')), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n";?>
 		</ul>
 	</div>
 </div>
