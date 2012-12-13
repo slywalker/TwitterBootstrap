@@ -3,7 +3,7 @@
 	"type": "cakephp-plugin",
 	"description": "CakePHP Bootstrap (for Twitter) Plugin",
 	"keywords": ["cakephp", "bootstrap", "twitter"],
-	"homepage": "https://github.com/slywalker/TitterBootstrap",
+	"homepage": "https://github.com/slywalker/TwitterBootstrap",
 	"license": "MIT",
 	"authors": [
 		{
@@ -13,7 +13,7 @@
 	],
 	"support": {
 		"issues": "https://github.com/slywalker/TwitterBootstrap/issues",
-		"source": "https://github.com/slywalker/TitterBootstrap"
+		"source": "https://github.com/slywalker/TwitterBootstrap"
 	},
 	"require": {
 		"php": ">=5.3.0",
