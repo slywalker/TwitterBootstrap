@@ -1,0 +1,17 @@
+{
+    "name": "slywalker/twitter_bootstrap",
+    "type": "cakephp-plugin",
+    "description": "Bootstrap (for Twitter) Plugin for CakePHP",
+    "keywords": ["cakephp","bootstrap"],
+    "homepage": "https://github.com/slywalker/TitterBootstrap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yasuo Harada",
+            "email": "slywalker.net@gmail.com"
+        }
+    ],
+    "require": {
+        "composer/installers": "*"
+    }
+}
