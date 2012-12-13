@@ -22,12 +22,13 @@
                     "type": "git",
                     "reference": "master"
                 }
-            }
+            },
+            "packagist": false
         }
     ],
     "require": {
-        "composer/installers": "*",
-        "bootstrap": "*"
+        "bootstrap": "*",
+        "composer/installers": "*"
     },
     "config": {
         "vendor-dir": "Vendor"
