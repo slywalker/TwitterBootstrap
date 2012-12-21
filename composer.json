@@ -1,28 +1,30 @@
 {
-	"name": "slywalker/twitter_bootstrap",
-	"type": "cakephp-plugin",
-	"description": "CakePHP Bootstrap (for Twitter) Plugin",
-	"keywords": ["cakephp", "bootstrap", "twitter"],
-	"homepage": "https://github.com/slywalker/TwitterBootstrap",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Yasuo Harada",
-			"email": "slywalker.net@gmail.com"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/slywalker/TwitterBootstrap/issues",
-		"source": "https://github.com/slywalker/TwitterBootstrap"
-	},
-	"require": {
-		"php": ">=5.3.0",
-		"twitter/bootstrap": "v2.2.2",
-		"composer/installers": "*"
-	},
-	"extra": {
-		"installer-paths": {
-			"Plugin/TwitterBootstrap/Vender/bootstrap/": ["twitter/bootstrap"]
-		}
-	}
+    "name": "slywalker/twitter_bootstrap",
+    "type": "cakephp-plugin",
+    "description": "CakePHP Bootstrap (for Twitter) Plugin",
+    "keywords": [
+        "cakephp",
+        "bootstrap",
+        "twitter"
+    ],
+    "homepage": "https://github.com/slywalker/TwitterBootstrap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yasuo Harada",
+            "email": "slywalker.net@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/slywalker/TwitterBootstrap/issues",
+        "source": "https://github.com/slywalker/TwitterBootstrap"
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "twitter/bootstrap": "v2.2.2",
+        "composer/installers": "*"
+    },
+    "suggest": {
+        "twitter/bootstrap": "Bootstrap for Twitter"
+    }
 }
