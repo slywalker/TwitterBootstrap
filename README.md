@@ -8,6 +8,21 @@ This v1.5.4 supports Bootstrap v2.2.1
 ##Installation
 ###This plugin
 
+Composer
+
+	{
+	    "require": {
+	        "slywalker/twitter_bootstrap": "dev-master"
+	    },
+	    "extra": {
+	        "installer-paths": {
+	            "Plugin/TwitterBootstrap/Vender/bootstrap/": [
+	                "twitter/bootstrap"
+	            ]
+	        }
+	    }
+	}
+
 Submodule
 
 	$ cd /your_app_path
