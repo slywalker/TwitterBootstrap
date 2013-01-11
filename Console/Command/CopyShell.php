@@ -1,24 +1,7 @@
 <?php
-App::uses('AppShell', 'Console/Command');
-App::uses('Folder', 'Utility');
+App::uses('TwitterBootstrapAppShell', 'TwitterBootstrap.Console/Command');
 
-class CopyShell extends AppShell {
-
-	const IMG_DIR = 'img';
-
-	const JS_DIR = 'js';
-
-	const LESS_DIR = 'less';
-
-	protected $_Theme = null;
-
-	protected $_Action = null;
-
-	public $pluginPath = null;
-
-	public $bootstrapPath = null;
-
-	public $Folder = null;
+class CopyShell extends TwitterBootstrapAppShell {
 
 	public function getOptionParser() {
 		$options = array(
@@ -86,13 +69,6 @@ class CopyShell extends AppShell {
 		));
 	}
 
-	public function initialize() {
-		$this->pluginPath = dirname(dirname(dirname(__FILE__))) . DS;
-		$this->bootstrapPath = $this->pluginPath . 'Vendor' . DS . 'bootstrap' . DS;
-		$this->Folder = new Folder($this->bootstrapPath);
-		parent::initialize();
-	}
-
 	public function main() {
 		if (isset($this->params['theme'])) {
 			$this->_Theme = $this->params['theme'];
@@ -143,7 +119,7 @@ class CopyShell extends AppShell {
 		} elseif ($this->_Theme && isset($this->params['webroot'])) {
 			$to = WWW_ROOT . 'theme' . DS . $this->_Theme . DS . 'css' . DS . 'lib';
 		} else {
-			$to = WWW_ROOT . 'css' . DS . 'lib';
+			$to = WWW_ROOT . 'css' . DS . 'less';
 		}
 		$this->out('<info>Copying Less</info>');
 		$this->_copy(compact('from', 'to'));
