@@ -21,6 +21,7 @@
     },
     "require": {
         "php": ">=5.3.0",
+        "twitter/bootstrap": "dev-master",
         "composer/installers": "*"
     },
     "suggest": {

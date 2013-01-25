@@ -37,6 +37,16 @@ class TwitterBootstrapAppShell extends AppShell {
 		);
 
 		foreach ($paths as $path) {
+			$dir = 'twitter' . DS . 'bootstrap' . DS . 'twitter' . DS . 'bootstrap' . DS;
+			if (
+				is_dir($path . $dir . self::IMG_DIR) &&
+				is_dir($path . $dir . self::JS_DIR) &&
+				is_dir($path . $dir . self::LESS_DIR)
+			) {
+				$this->bootstrapPath = $path . $dir;
+				break;
+			}
+
 			$dir = 'twitter' . DS . 'bootstrap' . DS;
 			if (
 				is_dir($path . $dir . self::IMG_DIR) &&
