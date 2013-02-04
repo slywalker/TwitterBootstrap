@@ -16,7 +16,7 @@ $config = array('tags' => array(
 	'tagselfclosing' => '<%s%s>',
 	'css' => '<link rel="%s" href="%s"%s>',
 	'style' => '<style%s>%s</style>',
-	'charset' => '<meta charset=%s">',
+	'charset' => '<meta charset="%s">',
 	'javascriptblock' => '<script%s>%s</script>',
 	'javascriptstart' => '<script>',
 	'javascriptlink' => '<script src="%s"%s></script>',
