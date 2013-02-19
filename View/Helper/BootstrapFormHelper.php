@@ -40,28 +40,34 @@ class BootstrapFormHelper extends FormHelper {
 	}
 	
 	public function dropdown($title = 'DropText', $links = array(), $options = array()) {
-        
-	        $links      = isset($links) ? $links : null;
-	        $size       = isset($options['size']) ? $options['size'] : null;
-	        $direction  = isset($options['direct']) ? $options['direct'] : 'dropdown';
-	        $class      = isset($options['class']) ? $options['class'] : null;
-	        
-	        $content    = $this->Html->tag('button', $title, array('class' => self::CLASS_BUTTON . ' ' . $size)); 
-	        $content    .= $this->Html->tag('button', $this->Html->tag('span',null,array('class' => 'caret')), array('class' => self::CLASS_BUTTON . ' ' . $size . ' dropdown-toggle ', 'data-toggle' => $direction)); 
-	         
-	        if(!is_null($links)){
+
+	        $links = isset($links) ? $links : null;
+	        $size = isset($options['size']) ? $options['size'] : null;
+	        $direction = isset($options['direct']) ? $options['direct'] : 'dropdown';
+	        $type = isset($options['type']) ? $options['type'] : 'button';
+	        $class = isset($options['class']) ? $options['class'] : null;
+	
+	        switch ($type) {            
+	            case 'link':
+	                $content = $this->Html->tag('a', $title . $this->Html->tag('span', null, array('class' => 'caret')), array('class' => self::CLASS_BUTTON . ' dropdown-toggle ' . $size, 'data-toggle' => $direction));
+	                break;
+	            default :
+	                $content = $this->Html->tag('button', $title, array('class' => self::CLASS_BUTTON . ' ' . $size));
+	                $content .= $this->Html->tag('button', $this->Html->tag('span', null, array('class' => 'caret')), array('class' => self::CLASS_BUTTON . ' ' . $size . ' dropdown-toggle ', 'data-toggle' => $direction));
+	        }
+	
+	        if (!is_null($links)) {
 	            $menu_links = null;
-	            foreach ($links as $link){
-	                list($title, $url, $options) = $link;
-	                $menu_links .= $this->Html->tag('li', $this->Html->link($title, $url, $options));
+	            foreach ($links as $link) {
+	                @list($title, $url, $opt) = $link;
+	                $menu_links .= $this->Html->tag('li', $this->Html->link($title, $url, $opt));
 	            }
-	            if(!is_null($menu_links)){
+	            if (!is_null($menu_links)) {
 	                $content .= $this->Html->tag('ul', $menu_links, array('class' => 'dropdown-menu'));
 	            }
 	        }
-	        
+	
 	        return $this->Html->tag('div', $content, array('class' => self::CLASS_BUTTON_GROUP . ' ' . $direction . ' ' . $class));
-
     	}
 
 	public function addon($fieldName, $options = array(), $before = false) {
