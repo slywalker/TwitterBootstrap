@@ -116,8 +116,11 @@ class BootstrapFormHelper extends FormHelper {
 	public function radio($fieldName, $radioOptions = array(), $options = array()) {
 		$options['legend'] = false;
 		$options['separator'] = "\n";
+        // Added this to allow 'radio inline' to be added to a radio buttom
+        $radioClass = ! isset($options['class']) ? 'radio' : $options['class'];
 		$out = parent::radio($fieldName, $radioOptions, $options);
-		$out = $this->_restructureLabel($out, array('class' => 'radio'));
+        // Modified this to allow the class to applied appropriately
+		$out = $this->_restructureLabel($out, array('class' => $radioClass));
 		return $out;
 	}
 
