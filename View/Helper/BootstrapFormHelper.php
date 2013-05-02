@@ -182,6 +182,7 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	public function input($fieldName, $options = array()) {
+		$this->setEntity($fieldName);
 		$options = array_merge(
 			array('format' => array('before', 'label', 'between', 'input', 'error', 'after')),
 			$this->_inputDefaults,
