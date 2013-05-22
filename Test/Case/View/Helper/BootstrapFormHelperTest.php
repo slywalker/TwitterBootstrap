@@ -41,6 +41,17 @@ class BootstrapFormHelperTest extends CakeTestCase {
 		$expected = '<form action="/" id="Form" method="post" accept-charset="utf-8">' .
 			'<div style="display:none;"><input type="hidden" name="_method" value="POST"></div>';
 		$this->assertSame($expected, $form);
+		$form = $this->BootstrapForm->create(
+			array(
+				'url' => array(
+					'controller' => 'test',
+					'action' => 'testing'
+				)
+			)
+		);
+		$expected = '<form action="/test/testing" id="Form" method="post" accept-charset="utf-8">' .
+			'<div style="display:none;"><input type="hidden" name="_method" value="POST"></div>';
+		$this->assertSame($expected, $form);		
 	}
 
 /**

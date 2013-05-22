@@ -144,6 +144,10 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	public function create($model = null, $options = array()) {
+		if (is_array($model) && empty($options)) {
+			$options = $model;
+			$model = null;
+		}
 		$class = explode(' ', $this->_extractOption('class', $options));
 		$inputDefaults = $this->_extractOption('inputDefaults', $options, array());
 
