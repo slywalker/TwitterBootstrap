@@ -7,8 +7,10 @@ class BootstrapPaginatorHelper extends PaginatorHelper {
 		$default = array(
 			'div' => 'pagination pagination-centered'
 		);
+		
+		$model = (empty($options['model'])) ? $this->defaultModel() : $options['model'];
 
-		$pagingParams = reset($this->request->params['paging']);
+		$pagingParams = $this->request->params['paging'][$model];
 		$pageCount = $pagingParams['pageCount'];
 
 		if ($pageCount < 2) {
