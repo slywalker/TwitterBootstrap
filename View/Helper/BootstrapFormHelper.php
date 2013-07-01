@@ -182,6 +182,7 @@ class BootstrapFormHelper extends FormHelper {
 	}
 
 	public function input($fieldName, $options = array()) {
+		$this->setEntity($fieldName);
 		$options = array_merge(
 			array('format' => array('before', 'label', 'between', 'input', 'error', 'after')),
 			$this->_inputDefaults,
@@ -191,6 +192,9 @@ class BootstrapFormHelper extends FormHelper {
 
 		$type = $this->_extractOption('type', $options);
 		$options = $this->_getType($fieldName, $options);
+
+		$divOptions = $this->_divOptions($options);
+		$options['div'] = false;
 
 		$hidden = null;
 		if ('hidden' === $options['type']) {
@@ -218,9 +222,6 @@ class BootstrapFormHelper extends FormHelper {
 			$options = $this->addClass($options, 'disabled');
 		}
 
-		$div = $this->_extractOption('div', $options);
-		$options['div'] = false;
-
 		$before = $this->_extractOption('before', $options);
 		$options['before'] = null;
 
@@ -229,7 +230,7 @@ class BootstrapFormHelper extends FormHelper {
 			if (!is_array($label)) {
 				$label = array('text' => $label);
 			}
-			if (false !== $div) {
+			if (false !== $divOptions) {
 				$class = $this->_extractOption('class', $label, 'control-label');
 				$label = $this->addClass($label, $class);
 			}
@@ -244,10 +245,16 @@ class BootstrapFormHelper extends FormHelper {
 
 		$input = parent::input($fieldName, $options);
 		$divControls = $this->_extractOption('divControls', $options, self::CLASS_INPUTS);
-		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
+		$input = $hidden . ((false === $divOptions) ? $input : $this->Html->div($divControls, $input));
 
 		$out = $before . $label . $between . $input;
-		return (false === $div) ? $out : $this->Html->div($div, $out);
+
+		if (!empty($divOptions['tag'])) {
+			$tag = $divOptions['tag'];
+			unset($divOptions['tag']);
+			$out = $this->Html->tag($tag, $out, $divOptions);
+		}
+		return $out;
 	}
 
 	protected function _getType($fieldName, $options) {
