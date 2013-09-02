@@ -135,7 +135,7 @@ class BootstrapFormHelper extends FormHelper {
 	protected function _restructureLabel($out, $options = array()) {
 		$out = explode("\n", $out);
 		foreach ($out as $key => &$_out) {
-			$input = strip_tags($_out, '<input><img>');
+			$input = strip_tags($_out, '<input><img><label>');
 			if ($input) {
 				$_out = $this->Html->tag('label', $input, $options);
 			}
