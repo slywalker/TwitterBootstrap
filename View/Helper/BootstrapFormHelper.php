@@ -35,7 +35,7 @@ class BootstrapFormHelper extends FormHelper {
 			}
 			return $options;
 		} else {
-			return $this->Html->tag('span', $options['value'], $options['class']);
+			return $this->Html->tag('span', $options['value'], $options);
 		}
 	}
 
