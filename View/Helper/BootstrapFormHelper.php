@@ -35,7 +35,7 @@ class BootstrapFormHelper extends FormHelper {
 			}
 			return $options;
 		} else {
-			return $this->Html->tag('span', $options['value'], $options['class']);
+			return $this->Html->tag('span', $options['value'], $options);
 		}
 	}
 
@@ -247,7 +247,7 @@ class BootstrapFormHelper extends FormHelper {
 		$input = $hidden . ((false === $div) ? $input : $this->Html->div($divControls, $input));
 
 		$out = $before . $label . $between . $input;
-		return (false === $div) ? $out : $this->Html->tag('div', $out, $div);
+		return (false === $div) ? $out : $this->Html->tag('div', $out, array('class' => $div));
 	}
 
 	protected function _getType($fieldName, $options) {
