@@ -5,7 +5,7 @@ The TwitterBootstrap Plugin provides an easy-to-use feature Bootstrap in CakePHP
 
 [Bootstrap, from Twitter](http://twitter.github.com/bootstrap/)
 
-This v1.5.6 supports Bootstrap v2.2.2
+This v1.5.7 supports Bootstrap v2.2.2
 
 ##Installation
 ###This plugin
