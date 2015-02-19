@@ -149,6 +149,8 @@ class BootstrapFormHelper extends FormHelper {
 
 		if (in_array(self::FORM_HORIZONTAL, $class)) {
 			$this->_isHorizontal = true;
+		} else {
+			$this->_isHorizontal = false;
 		}
 
 		if (in_array(self::FORM_SEARCH, $class) || in_array(self::FORM_INLINE, $class)) {
